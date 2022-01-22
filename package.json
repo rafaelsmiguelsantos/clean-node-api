@@ -21,7 +21,7 @@
     "eslint-plugin-import": "^2.25.4",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "^5.2.0",
-    "git-commit-msg-linter": "^4.0.7",
+    "git-commit-msg-linter": "^2.4.4",
     "husky": "^7.0.4",
     "jest": "^27.4.7",
     "lint-staged": "^12.2.2",
