@@ -12,6 +12,7 @@ interface SutTypes {
   emailValidatorStub: EmailValidator
   addAccountStub: IAddAccount
 }
+
 const makeAddAccount = (): IAddAccount => {
   class AddAccountStub implements IAddAccount {
     async addAccount (account: AddAccountModel): Promise<AccountModel> {
