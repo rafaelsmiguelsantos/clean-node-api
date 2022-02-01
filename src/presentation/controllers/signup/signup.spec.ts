@@ -1,5 +1,5 @@
 import { SignUpController } from './signup'
-import { EmailValidator, HttpRequest } from '../protocols/signup-protocols'
+import { EmailValidator, HttpRequest } from './signup-protocols'
 
 import { MissingParamError, ServerError, InvalidParamError } from '../../errors'
 
