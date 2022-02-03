@@ -4,7 +4,7 @@ import { HttpRequest, IValidation, AddAccountModel, IAddAccount } from './signup
 import { MissingParamError, ServerError } from '../../errors'
 
 import { AccountModel } from '../../../domain/models/account'
-import { ok, serverError, badRequest } from '../../helpers/http-helper'
+import { ok, serverError, badRequest } from '../../helpers/http/http-helper'
 
 interface SutTypes {
   sut: SignUpController
