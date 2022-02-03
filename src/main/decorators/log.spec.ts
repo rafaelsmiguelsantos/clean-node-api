@@ -62,7 +62,7 @@ interface SutTypes {
 }
 
 describe('LogController Decorator', () => {
-  test('Should call controller handle', async () => {
+  test('Should call controller method handle', async () => {
     const { sut, controllerStub } = makeSut()
     const handleSpy = jest.spyOn(controllerStub, 'handle')
     await sut.handle(makeFakeRequest())
