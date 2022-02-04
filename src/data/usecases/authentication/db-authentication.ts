@@ -2,7 +2,7 @@ import {
   Authentication,
   AuthenticationModel,
   IHashComparer,
-  ITokenGenerator,
+  IEncrypter,
   LoadAccountByEmailRepository,
   IUpdateAccessTokenRepository
 } from './index'
@@ -10,13 +10,13 @@ import {
 export class DbAuthentication implements Authentication {
   private readonly loadAccountByEmailRepository: LoadAccountByEmailRepository
   private readonly hashComparer: IHashComparer
-  private readonly tokenGenerator: ITokenGenerator
+  private readonly tokenGenerator: IEncrypter
   private readonly updateAccessTokenRepository: IUpdateAccessTokenRepository
 
   constructor (
     loadAccountByEmailRepository: LoadAccountByEmailRepository,
     hashComparer: IHashComparer,
-    tokenGenerator: ITokenGenerator,
+    tokenGenerator: IEncrypter,
     updateAccessTokenRepository: IUpdateAccessTokenRepository) {
     this.loadAccountByEmailRepository = loadAccountByEmailRepository
     this.hashComparer = hashComparer
@@ -29,7 +29,7 @@ export class DbAuthentication implements Authentication {
     if (account) {
       const isValid = await this.hashComparer.compare(authentication.password, account.password)
       if (isValid) {
-        const accessToken = await this.tokenGenerator.generate(account.id)
+        const accessToken = await this.tokenGenerator.encrypt(account.id)
         await this.updateAccessTokenRepository.updateToken(account.id, accessToken)
         return accessToken
       }
