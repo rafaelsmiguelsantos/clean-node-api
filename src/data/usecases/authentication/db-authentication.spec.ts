@@ -24,11 +24,24 @@ const makeFakeLoadAccountByEmailRepository = (): LoadAccountByEmailRepository =>
   return new LoadAccountByEmailRepositoryStub()
 }
 
+interface SutTypes {
+  sut: DbAuthentication
+  loadAccountByEmailRepositoryStub: LoadAccountByEmailRepository
+}
+
+const makeSut = (): SutTypes => {
+  const loadAccountByEmailRepositoryStub = makeFakeLoadAccountByEmailRepository()
+  const sut = new DbAuthentication(loadAccountByEmailRepositoryStub)
+  return {
+    sut,
+    loadAccountByEmailRepositoryStub
+  }
+}
+
 describe('DbAuthentication UseCases', () => {
   test('Should call LoadAccountByEmailRepository with correct email', () => {
-    const loadAccountByEmailRepository = makeFakeLoadAccountByEmailRepository()
-    const sut = new DbAuthentication(loadAccountByEmailRepository)
-    const loadSpy = jest.spyOn(loadAccountByEmailRepository, 'load')
+    const { sut, loadAccountByEmailRepositoryStub } = makeSut()
+    const loadSpy = jest.spyOn(loadAccountByEmailRepositoryStub, 'load')
     void sut.auth(makeFakeAuthentication())
     expect(loadSpy).toHaveBeenCalledWith('any_email@mail.com')
   })
