@@ -3,13 +3,7 @@ import { Controller, HttpRequest, HttpResponse, Authentication } from './login-p
 import { IValidation } from '../signup/signup-protocols'
 
 export class LoginController implements Controller {
-  private readonly authentication: Authentication
-  private readonly validation: IValidation
-
-  constructor (validation: IValidation, authentication: Authentication) {
-    this.validation = validation
-    this.authentication = authentication
-  }
+  constructor (private readonly validation: IValidation, private readonly authentication: Authentication) { }
 
   async handle (httpRequest: HttpRequest): Promise<HttpResponse> {
     try {
