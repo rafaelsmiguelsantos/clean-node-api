@@ -9,13 +9,9 @@ const makeSut = (): LogMongoRepository => {
 describe('Logger Mongo Repository', () => {
   let errorCollection: Collection
 
-  beforeAll(async () => {
-    await MongoHelper.connect(process.env.MONGO_URL)
-  })
+  beforeAll(async () => { await MongoHelper.connect(process.env.MONGO_URL) })
 
-  afterAll(async () => {
-    await MongoHelper.disconnect()
-  })
+  afterAll(async () => { await MongoHelper.disconnect() })
 
   beforeEach(async () => {
     errorCollection = await MongoHelper.getCollection('errors')
