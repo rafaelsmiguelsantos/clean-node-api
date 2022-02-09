@@ -2,7 +2,7 @@ import { ILoggerErrorRepository } from '../../data-layer/protocols/db/logger-err
 import { AccountModel } from '../../domain/models/account'
 import { serverError, ok } from '../../presentation/helpers/http/http-helper'
 import { Controller, HttpRequest, HttpResponse } from '../../presentation/protocols'
-import { LogControllerDecorator } from './log'
+import { LogControllerDecorator } from './log-controller-decorator'
 
 const makeLogErrorRepository = (): ILoggerErrorRepository => {
   class LoggerErrorRepositoryStub implements ILoggerErrorRepository {
