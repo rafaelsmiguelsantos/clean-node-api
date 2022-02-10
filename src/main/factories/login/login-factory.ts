@@ -7,7 +7,7 @@ import { AccountMongoRepository } from '../../../infra/db/mongodb/account/accoun
 import { BcryptAdapter } from '../../../infra/criptography/bcrypt-adapter/bcrypt-adapter'
 import { JwtAdapter } from '../../../infra/criptography/jwt-adapter/jwt-adapter'
 import { DbAuthentication } from '../../../data-layer/usecases/authentication/db-authentication'
-import { env } from 'process'
+import env from '../../env'
 
 export const makeLoginController = (): Controller => {
   const SALT = 12
@@ -15,7 +15,7 @@ export const makeLoginController = (): Controller => {
   const jwtAdapter = new JwtAdapter(env.jwt)
   const accountMongoRepository = new AccountMongoRepository()
   const dbAuthentication = new DbAuthentication(accountMongoRepository, bcryptAdapter, jwtAdapter, accountMongoRepository)
-  const loginController = new LoginController(dbAuthentication, makeLoginValidation())
+  const loginController = new LoginController(makeLoginValidation(), dbAuthentication)
   const loggerMongoRepository = new LogMongoRepository()
   return new LogControllerDecorator(loginController, loggerMongoRepository)
 }
