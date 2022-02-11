@@ -8,8 +8,8 @@ import { LogMongoRepository } from '../../../infra/db/mongodb/log/log-mongo-repo
 import { SignUpController } from '../../../presentation/controllers/signup/signup-controller'
 import { Controller } from '../../../presentation/protocols'
 import { LogControllerDecorator } from '../../decorators/log-controller-decorator'
-import env from '../../env'
 import { makeSignUpValidation } from './signup-validation-factory'
+import env from '../../env'
 
 export const makeSignUpController = (): Controller => {
   const salt = 12
