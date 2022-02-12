@@ -6,5 +6,6 @@ import { SignUpController } from '../../../presentation/controllers/signup/signu
 import { makeLogControllerDecorator } from '../log-controller-decorator-factory'
 
 export const makeSignUpController = (): Controller => {
-  return makeLogControllerDecorator(new SignUpController(makeDbAddAccount(), makeSignUpValidation(), makeDbAuthentication()))
+  const controller = new SignUpController(makeDbAddAccount(), makeSignUpValidation(), makeDbAuthentication())
+  return makeLogControllerDecorator(controller)
 }
