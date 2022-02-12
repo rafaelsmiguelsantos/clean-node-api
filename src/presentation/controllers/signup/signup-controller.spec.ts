@@ -1,10 +1,10 @@
 import { SignUpController } from './signup-controller'
 import { HttpRequest, IValidation, AddAccountModel, IAddAccount, Authentication, AuthenticationModel } from './signup-protocols'
 
-import { MissingParamError, ServerError } from '../../errors'
+import { EmailInUseError, MissingParamError, ServerError } from '../../errors'
 
 import { AccountModel } from '../../../domain/models/account'
-import { ok, serverError, badRequest } from '../../helpers/http/http-helper'
+import { ok, serverError, badRequest, forbbiden } from '../../helpers/http/http-helper'
 
 interface SutTypes {
   sut: SignUpController
@@ -91,6 +91,13 @@ describe('SingUp Controller', () => {
       email: 'valid_email@email.com',
       password: 'valid_password'
     })
+  })
+
+  test('Should return 403 if AddAccount returns null', async () => {
+    const { sut, addAccountStub } = makeSut()
+    jest.spyOn(addAccountStub, 'addAccount').mockReturnValueOnce(new Promise(resolve => resolve(null)))
+    const httpResponse = await sut.handle(makeFakeRequest())
+    expect(httpResponse).toEqual(forbbiden(new EmailInUseError()))
   })
 
   test('Should return 200 if valid data is provided', async () => {
