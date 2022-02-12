@@ -6,7 +6,7 @@ import { IUpdateAccessTokenRepository, LoadAccountByEmailRepository } from '../.
 import { ObjectId } from 'mongodb'
 
 export class AccountMongoRepository implements AddAccountRepository, LoadAccountByEmailRepository, IUpdateAccessTokenRepository {
-  async addAccount (accountData: AddAccountModel): Promise<AccountModel> {
+  async add (accountData: AddAccountModel): Promise<AccountModel> {
     const accountCollection = await MongoHelper.getCollection('accounts')
     console.log(accountData)
     await accountCollection.insertOne(accountData)

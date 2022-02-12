@@ -24,7 +24,7 @@ const makeAuthentication = (): Authentication => {
 
 const makeAddAccount = (): IAddAccount => {
   class AddAccountStub implements IAddAccount {
-    async addAccount (account: AddAccountModel): Promise<AccountModel> {
+    async add (account: AddAccountModel): Promise<AccountModel> {
       return new Promise(resolve => resolve(makeFakeAccount()))
     }
   }
@@ -72,7 +72,7 @@ const makeSut = (): SutTypes => {
 describe('SingUp Controller', () => {
   test('Should return 500 if AddAccount throws', async () => {
     const { sut, addAccountStub } = makeSut()
-    jest.spyOn(addAccountStub, 'addAccount').mockImplementationOnce(async () => {
+    jest.spyOn(addAccountStub, 'add').mockImplementationOnce(async () => {
       return new Promise((resolve, reject) => reject(new Error()))
     })
 
@@ -82,7 +82,7 @@ describe('SingUp Controller', () => {
 
   test('Should call AddAccount with correct values', async () => {
     const { sut, addAccountStub } = makeSut()
-    const addAccountSpy = jest.spyOn(addAccountStub, 'addAccount')
+    const addAccountSpy = jest.spyOn(addAccountStub, 'add')
 
     await sut.handle(makeFakeRequest())
 
@@ -95,7 +95,7 @@ describe('SingUp Controller', () => {
 
   test('Should return 403 if AddAccount returns null', async () => {
     const { sut, addAccountStub } = makeSut()
-    jest.spyOn(addAccountStub, 'addAccount').mockReturnValueOnce(new Promise(resolve => resolve(null)))
+    jest.spyOn(addAccountStub, 'add').mockReturnValueOnce(new Promise(resolve => resolve(null)))
     const httpResponse = await sut.handle(makeFakeRequest())
     expect(httpResponse).toEqual(forbbiden(new EmailInUseError()))
   })

@@ -24,7 +24,7 @@ describe('Account Mongo Repository', () => {
 
   test('Should return an account on add success', async () => {
     const sut = makeSut()
-    const account = await sut.addAccount({
+    const account = await sut.add({
       name: 'any',
       email: 'any_email@mail.com',
       password: 'any_password'
