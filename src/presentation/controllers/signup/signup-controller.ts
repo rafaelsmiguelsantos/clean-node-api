@@ -1,8 +1,9 @@
-import { HttpRequest, HttpResponse, Controller, IValidation, Authentication } from './signup-protocols'
+import { HttpRequest, HttpResponse, Controller, Authentication } from './signup-protocols'
 
 import { badRequest, forbbiden, ok, serverError } from '../../helpers/http/http-helper'
 import { IAddAccount } from '../../../domain/usecases/add-account'
 import { EmailInUseError } from '../../errors'
+import { IValidation } from '../../protocols/validation'
 
 export class SignUpController implements Controller {
   constructor (private readonly addAccount: IAddAccount, private readonly validation: IValidation, private readonly authentication: Authentication) { }
