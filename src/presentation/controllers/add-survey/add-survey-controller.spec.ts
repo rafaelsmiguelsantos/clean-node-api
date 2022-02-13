@@ -1,7 +1,7 @@
 import { HttpRequest } from '../../protocols'
 import { IValidation } from '../../protocols/validation'
 import { AddSurveyController } from './add-survey-controller'
-import { badRequest, serverError } from '../../helpers/http/http-helper'
+import { badRequest, noContent, serverError } from '../../helpers/http/http-helper'
 import { IAddSurvey, AddSurveyModel } from '../../../domain/usecases/add-survey'
 
 const makeFakeRequest = (): HttpRequest => ({
@@ -81,5 +81,11 @@ describe('AddSurvey Controller', () => {
     })
     const response = await sut.handle(makeFakeRequest())
     expect(response).toEqual(serverError(new Error()))
+  })
+
+  test('Should return 500 if AddSurvey trhows', async () => {
+    const { sut } = makeSut()
+    const response = await sut.handle(makeFakeRequest())
+    expect(response).toEqual(noContent())
   })
 })
