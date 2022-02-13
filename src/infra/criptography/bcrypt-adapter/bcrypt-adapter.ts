@@ -1,8 +1,8 @@
-import { Hasher } from '../../../data-layer/protocols/criptography/hasher'
+import { IHasher } from '../../../data-layer/protocols/criptography/hasher'
 import bcrypt from 'bcrypt'
 import { IHashComparer } from '../../../data-layer/usecases/authentication'
 
-export class BcryptAdapter implements Hasher, IHashComparer {
+export class BcryptAdapter implements IHasher, IHashComparer {
   constructor (private readonly salt: number) { }
 
   async compare (value: string, hash: string): Promise<boolean> {

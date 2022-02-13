@@ -1,4 +1,4 @@
-import { AccountModel, AddAccountModel, AddAccountRepository, Hasher, LoadAccountByEmailRepository } from './index'
+import { AccountModel, AddAccountModel, AddAccountRepository, IHasher, LoadAccountByEmailRepository } from './index'
 import { DbAddAccount } from './db-add-account'
 
 const makeFakeAccount = (): AccountModel => ({
@@ -23,8 +23,8 @@ const makeAddAccountRepository = (): AddAccountRepository => {
   return new AddAccountRepositoryStub()
 }
 
-const makeHasher = (): Hasher => {
-  class HasherStub implements Hasher {
+const makeHasher = (): IHasher => {
+  class HasherStub implements IHasher {
     async hash (value: string): Promise<string> {
       return await new Promise<string>(resolve => resolve('hashed_password'))
     }
@@ -43,7 +43,7 @@ const makeFakeLoadAccountByEmailRepository = (): LoadAccountByEmailRepository =>
 
 interface SutTypes {
   sut: DbAddAccount
-  hasherStub: Hasher
+  hasherStub: IHasher
   addAccountRepositoryStub: AddAccountRepository
   loadAccountByEmailRepositoryStub: LoadAccountByEmailRepository
 }
