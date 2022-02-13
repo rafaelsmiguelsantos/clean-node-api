@@ -1,5 +1,5 @@
 import { SignUpController } from './signup-controller'
-import { HttpRequest, AddAccountModel, IAddAccount, Authentication, AuthenticationModel } from './signup-protocols'
+import { HttpRequest, AddAccountModel, IAddAccount, IAuthentication, AuthenticationModel } from './signup-protocols'
 
 import { EmailInUseError, MissingParamError, ServerError } from '../../errors'
 
@@ -11,11 +11,11 @@ interface SutTypes {
   sut: SignUpController
   addAccountStub: IAddAccount
   validationStub: IValidation
-  authenticationStub: Authentication
+  authenticationStub: IAuthentication
 }
 
-const makeAuthentication = (): Authentication => {
-  class AuthenticationStub implements Authentication {
+const makeAuthentication = (): IAuthentication => {
+  class AuthenticationStub implements IAuthentication {
     async auth (authentication: AuthenticationModel): Promise<string> {
       return new Promise(resolve => resolve('any_token'))
     }
