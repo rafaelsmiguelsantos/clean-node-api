@@ -1,7 +1,6 @@
 import { AccessDeniedError } from '../errors'
-import { forbbiden, ok, serverError } from '../helpers/http/http-helper'
 import { AuthMiddleware } from './auth-middleware'
-import { ILoadAccountByToken } from '../../domain/usecases/load-account-by-token'
+import { ILoadAccountByToken, forbbiden, ok, serverError } from './index'
 import { AccountModel } from '../../domain/models/account'
 import { HttpRequest } from '../protocols'
 

@@ -1,6 +1,4 @@
-import { IMiddleware, HttpRequest, HttpResponse } from '../protocols'
-import { forbbiden, ok, serverError } from '../helpers/http/http-helper'
-import { ILoadAccountByToken } from '../../domain/usecases/load-account-by-token'
+import { ILoadAccountByToken, IMiddleware, HttpRequest, HttpResponse, forbbiden, ok, serverError } from './index'
 import { AccessDeniedError } from '../errors'
 
 export class AuthMiddleware implements IMiddleware {
