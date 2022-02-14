@@ -11,7 +11,7 @@ export class AuthMiddleware implements IMiddleware {
     if (accessToken) {
       const account = await this.loadAccountByToken.load(accessToken)
       if (account) {
-        return ok({ accountId: account.id }) // Test
+        return ok({ accountId: account.id })
       }
     }
     return forbbiden(new AccessDeniedError())
