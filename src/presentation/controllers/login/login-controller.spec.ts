@@ -1,11 +1,11 @@
-import { HttpRequest, Authentication, AuthenticationModel } from './login-protocols'
+import { HttpRequest, IAuthentication, AuthenticationModel } from './login-protocols'
 import { badRequest, ok, serverError, unauthorized } from '../../helpers/http/http-helper'
 import { LoginController } from './login-controller'
 import { MissingParamError } from '../../errors'
 import { IValidation } from '../../protocols/validation'
 
-const makeAuthentication = (): Authentication => {
-  class AuthenticationStub implements Authentication {
+const makeAuthentication = (): IAuthentication => {
+  class AuthenticationStub implements IAuthentication {
     async auth (_authentication: AuthenticationModel): Promise<string> {
       return new Promise(resolve => resolve('any_token'))
     }
@@ -31,7 +31,7 @@ const makeValidation = (): IValidation => {
 
 interface SutTypes {
   sut: LoginController
-  authenticationStub: Authentication
+  authenticationStub: IAuthentication
   validationStub: IValidation
 }
 

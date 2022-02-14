@@ -1,5 +1,5 @@
 import {
-  Authentication,
+  IAuthentication,
   AuthenticationModel,
   IHashComparer,
   IEncrypter,
@@ -7,7 +7,7 @@ import {
   IUpdateAccessTokenRepository
 } from './index'
 
-export class DbAuthentication implements Authentication {
+export class DbAuthentication implements IAuthentication {
   constructor (
     private readonly loadAccountByEmailRepository: LoadAccountByEmailRepository,
     private readonly hashComparer: IHashComparer,
