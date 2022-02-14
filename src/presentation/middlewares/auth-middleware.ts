@@ -1,5 +1,5 @@
 import { AccessDeniedError } from '../errors'
-import { forbbiden } from '../helpers/http/http-helper'
+import { forbbiden, ok } from '../helpers/http/http-helper'
 import { IMiddleware, HttpRequest, HttpResponse } from '../protocols'
 import { ILoadAccountByToken } from '../../domain/usecases/load-account-by-token'
 
@@ -9,7 +9,10 @@ export class AuthMiddleware implements IMiddleware {
   async handle (httpRequest: HttpRequest): Promise<HttpResponse> {
     const accessToken = httpRequest.headers?.['x-access-token']
     if (accessToken) {
-      await this.loadAccountByToken.load(accessToken)
+      const account = await this.loadAccountByToken.load(accessToken)
+      if (account) {
+        return ok({ accountId: account.id })
+      }
     }
     return forbbiden(new AccessDeniedError())
   }
