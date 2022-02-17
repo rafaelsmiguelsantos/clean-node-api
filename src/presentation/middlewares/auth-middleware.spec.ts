@@ -41,6 +41,11 @@ const makeSut = (role?: string): SutTypes => {
 }
 
 describe('Auth Middleware', () => {
+  test('Should return 403 if no x-access-token exists in headers', async () => {
+    const { sut } = makeSut()
+    const httpResponse = await sut.handle({})
+    expect(httpResponse).toEqual(forbbiden(new AccessDeniedError()))
+  })
   test('Should call LoadAccountByToken with correct accessToken', async () => {
     const role = 'any_role'
     const { sut, loadAccountByTokenStub } = makeSut(role)
