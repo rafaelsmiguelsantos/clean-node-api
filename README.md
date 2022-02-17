@@ -1,4 +1,4 @@
-![fluxo de trabalho de exemplo](https://github.com/github/docs/actions/workflows/node.js.yml/badge.svg?event=push)
+![example workflow](https://github.com/rafaelsmiguelsantos/clean-node-api/actions/workflows/node.js.yml/badge.svg)
 
 
 # **Clean Node API**
