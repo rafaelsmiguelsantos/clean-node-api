@@ -4,7 +4,7 @@ import { MongoHelper } from '../helpers/mongo-helper'
 
 export class AddSurveyMongoRepository implements IAddSurveyRepository {
   async addSurvey (surveyData: AddSurveyModel): Promise<void> {
-    const surveyCollection = await MongoHelper.getCollection('surveys')
+    const surveyCollection = MongoHelper.getCollection('surveys')
     await surveyCollection.insertOne(surveyData)
   }
 }
