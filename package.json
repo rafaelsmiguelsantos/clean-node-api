@@ -12,8 +12,8 @@
     "test:unit": "npm test -- -c jest-unit-config.js",
     "test:integration": "npm test -- -c jest-integration-config.js",
     "test:staged": "npm test -- --findRelatedTests",
-    "test:ci": "npm test -- --coverage && coveralls < coverage/lcov.info --detectOpenHandles",
-    "test:coveralls": "npm test -- --coverage && coveralls < coverage/lcov.info --detectOpenHandles",
+    "test:ci": "npm test -- --coverage --detectOpenHandles",
+    "test:coveralls": "npm run test:ci && coveralls < coverage/lcov.info",
     "prepare": "husky install"
   },
   "husky": {
