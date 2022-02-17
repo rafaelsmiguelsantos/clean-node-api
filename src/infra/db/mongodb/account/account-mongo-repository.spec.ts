@@ -114,4 +114,16 @@ describe('loadByToken()', () => {
     const account = await sut.loadByToken('any_email@mail.com')
     expect(account).toBeFalsy()
   })
+
+  test('Should return null on loadByToken with invalid role', async () => {
+    const sut = makeSut()
+    await accountCollection.insertOne({
+      name: 'any',
+      email: 'any_email@mail.com',
+      password: 'any_password',
+      accessToken: 'any_token'
+    })
+    const account = await sut.loadByToken('any_token', 'admin')
+    expect(account).toBeFalsy()
+  })
 })
