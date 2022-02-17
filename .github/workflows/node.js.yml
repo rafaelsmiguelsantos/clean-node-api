@@ -23,7 +23,7 @@ jobs:
           node-version: ${{ matrix.node }}
       - run: npm ci
       # Run tests and generate the lcov.info file
-      - run: npm test:coveralls
+      - run: npm run test:coveralls
 
       # Run the coveralls action which uploads the
       # lcov.info file
