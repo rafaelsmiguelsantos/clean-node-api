@@ -1,29 +1,49 @@
-name: Node.js CI
-
+name: test
 on:
-  push:
-    branches: [ master ]
   pull_request:
-    branches: [ master ]
+    branches:
+      - master
+  push:
+    branches:
+      - master
 
 jobs:
-  build:
-
+  test:
     runs-on: ubuntu-latest
-
+    timeout-minutes: 5
     strategy:
       matrix:
-        node-version: [14.x]
-        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
-
+        node: ["12"]
+    name: Node ${{ matrix.node }} test
     steps:
-    - uses: actions/checkout@v2
-    - uses: actions/setup-node@v1
-      with:
-        node-version: ${{ matrix.node-version }}
-    - run: npm ci
-    - run: npm run test:coveralls
-    - name: Coveralls
-      uses: coverallsapp/github-action@master
-      with:
-        github-token: ${{ secrets.GITHUB_TOKEN }}
+      - uses: actions/checkout@v2
+      - name: Setup node
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ matrix.node }}
+      - run: npm ci
+      # Run tests and generate the lcov.info file
+      - run: npm test
+
+      # Run the coveralls action which uploads the
+      # lcov.info file
+      - name: Coveralls Parallel
+        uses: coverallsapp/github-action@master
+        with:
+          github-token: ${{ secrets.github_token }}
+          flag-name: run-${{ matrix.node }}
+          # This is a parallel build so need this
+          parallel: true
+
+  # As testing against multiple versions need this to
+  # finish the parallel build
+  finish:
+    name: Coveralls coverage
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Coveralls Finished
+        uses: coverallsapp/github-action@master
+        with:
+          github-token: ${{ secrets.github_token }}
+          parallel-finished: true
