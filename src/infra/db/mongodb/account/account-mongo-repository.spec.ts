@@ -68,10 +68,10 @@ describe('Account Mongo Repository', () => {
     const fakeAccount = { _id: res.insertedId }
     let account = await accountCollection.findOne(fakeAccount)
     expect(account.accessToken).toBeFalsy()
-    await sut.updateAccessToken(res.insertedId.toString(), 'any_token')
+    await sut.updateAccessToken(res.insertedId.toString(), 'admin')
     account = await accountCollection.findOne(fakeAccount)
     expect(account).toBeTruthy()
-    expect(account.accessToken).toBe('any_token')
+    expect(account.accessToken).toBe('admin')
   })
 })
 
@@ -92,16 +92,16 @@ describe('loadByToken()', () => {
     expect(account.password).toBe('any_password')
   })
 
-  test('Should return an account on loadByToken with role', async () => {
+  test('Should return an account on loadByToken with admin role', async () => {
     const sut = makeSut()
     await accountCollection.insertOne({
       name: 'any',
       email: 'any_email@mail.com',
       password: 'any_password',
       accessToken: 'any_token',
-      role: 'any_role'
+      role: 'admin'
     })
-    const account = await sut.loadByToken('any_token', 'any_role')
+    const account = await sut.loadByToken('any_token', 'admin')
     expect(account).toBeTruthy()
     expect(account.id).toBeTruthy()
     expect(account.name).toBe('any')
