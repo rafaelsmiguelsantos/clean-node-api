@@ -1,6 +1,6 @@
 import { HttpRequest, HttpResponse, Controller, IAuthentication } from './signup-protocols'
 
-import { badRequest, forbbiden, ok, serverError } from '../../helpers/http/http-helper'
+import { badRequest, forbidden, ok, serverError } from '../../helpers/http/http-helper'
 import { IAddAccount } from '../../../domain/usecases/add-account'
 import { EmailInUseError } from '../../errors'
 import { IValidation } from '../../protocols/validation'
@@ -21,7 +21,7 @@ export class SignUpController implements Controller {
         password
       })
       if (!account) {
-        return forbbiden(new EmailInUseError())
+        return forbidden(new EmailInUseError())
       }
       const accessToken = await this.authentication.auth({ email, password })
       return ok({ accessToken })

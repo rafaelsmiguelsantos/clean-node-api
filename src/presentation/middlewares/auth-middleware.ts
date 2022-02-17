@@ -1,4 +1,4 @@
-import { ILoadAccountByToken, IMiddleware, HttpRequest, HttpResponse, forbbiden, ok, serverError } from './index'
+import { ILoadAccountByToken, IMiddleware, HttpRequest, HttpResponse, forbidden, ok, serverError } from './index'
 import { AccessDeniedError } from '../errors'
 
 export class AuthMiddleware implements IMiddleware {
@@ -13,7 +13,7 @@ export class AuthMiddleware implements IMiddleware {
           return ok({ accountId: account.id })
         }
       }
-      return forbbiden(new AccessDeniedError())
+      return forbidden(new AccessDeniedError())
     } catch (error) {
       return serverError(error)
     }
