@@ -1,5 +1,5 @@
 ![example workflow](https://github.com/rafaelsmiguelsantos/clean-node-api/actions/workflows/node.js.yml/badge.svg)
-[![Coverage Status](https://coveralls.io/repos/github/rafaelsmiguelsantos/clean-node-api/badge.svg?branch=master)]
+![Coverage Status](https://coveralls.io/repos/github/rafaelsmiguelsantos/clean-node-api/badge.svg?branch=master)
 
 # **Clean Node API**
 
