@@ -1,6 +1,6 @@
 import { AccessDeniedError } from '../errors'
 import { AuthMiddleware } from './auth-middleware'
-import { ILoadAccountByToken, forbbiden, ok, serverError } from './index'
+import { ILoadAccountByToken, forbidden, ok, serverError } from './index'
 import { AccountModel } from '../../domain/models/account'
 import { HttpRequest } from '../protocols'
 
@@ -44,7 +44,7 @@ describe('Auth Middleware', () => {
   test('Should return 403 if no x-access-token exists in headers', async () => {
     const { sut } = makeSut()
     const httpResponse = await sut.handle({})
-    expect(httpResponse).toEqual(forbbiden(new AccessDeniedError()))
+    expect(httpResponse).toEqual(forbidden(new AccessDeniedError()))
   })
   test('Should call LoadAccountByToken with correct accessToken', async () => {
     const role = 'any_role'
@@ -58,7 +58,7 @@ describe('Auth Middleware', () => {
     const { sut, loadAccountByTokenStub } = makeSut()
     jest.spyOn(loadAccountByTokenStub, 'load').mockReturnValueOnce(new Promise(resolve => resolve(null)))
     const httpResponse = await sut.handle(makeFakeRequest())
-    expect(httpResponse).toEqual(forbbiden(new AccessDeniedError()))
+    expect(httpResponse).toEqual(forbidden(new AccessDeniedError()))
   })
 
   test('Should return 200 if LoadAccountByToken returns an account', async () => {
