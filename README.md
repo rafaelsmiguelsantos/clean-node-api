@@ -1,3 +1,6 @@
+![fluxo de trabalho de exemplo](https://github.com/github/docs/actions/workflows/nodejs.yml/badge.svg)
+
+
 # **Clean Node API**
 
 ---
