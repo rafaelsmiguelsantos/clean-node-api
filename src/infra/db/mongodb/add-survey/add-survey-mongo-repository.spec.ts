@@ -4,6 +4,9 @@ import { AddSurveyMongoRepository } from './add-survey-mongo-repository'
 
 let surveyCollection: Collection
 
+const makeSut = (): AddSurveyMongoRepository => {
+  return new AddSurveyMongoRepository()
+}
 describe('AddSurvey Mongo Repository', () => {
   beforeAll(async () => { await MongoHelper.connect(process.env.MONGO_URL) })
 
@@ -14,21 +17,19 @@ describe('AddSurvey Mongo Repository', () => {
     await surveyCollection.deleteMany({})
   })
 
-  const makeSut = (): AddSurveyMongoRepository => {
-    return new AddSurveyMongoRepository()
-  }
-
-  test('Should add survey on success', async () => {
-    const sut = makeSut()
-    await sut.addSurvey({
-      question: 'any_question',
-      answers: [{
-        image: 'any_image',
-        answer: 'any_answer'
-      },{ answer: 'any_second' }],
-      date: new Date()
+  describe('addSurveys', () => {
+    test('Should add survey on success', async () => {
+      const sut = makeSut()
+      await sut.addSurvey({
+        question: 'any_question',
+        answers: [{
+          image: 'any_image',
+          answer: 'any_answer'
+        }, { answer: 'any_second' }],
+        date: new Date()
+      })
+      const survey = await surveyCollection.findOne({ question: 'any_question' })
+      expect(survey).toBeTruthy()
     })
-    const survey = await surveyCollection.findOne({ question: 'any_question' })
-    expect(survey).toBeTruthy()
   })
 })
