@@ -3,8 +3,8 @@ import { ILoadSurveysRepository } from '../../protocols/db/load-surveys-reposito
 
 export class DbLoadSurveys implements ILoadSurveysRepository {
   constructor (private readonly loadSurveysRepository: ILoadSurveysRepository) { }
-  async loadSurveys (): Promise<SurveysModel[]> {
-    const surveys = await this.loadSurveysRepository.loadSurveys()
+  async loadAllSurveys (): Promise<SurveysModel[]> {
+    const surveys = await this.loadSurveysRepository.loadAllSurveys()
     return surveys
   }
 }
