@@ -1,11 +1,11 @@
 import { Collection } from 'mongodb'
 import { MongoHelper } from '../helpers/mongo-helper'
-import { AddSurveyMongoRepository } from './add-survey-mongo-repository'
+import { SurveyMongoRepository } from './add-survey-mongo-repository'
 
 let surveyCollection: Collection
 
-const makeSut = (): AddSurveyMongoRepository => {
-  return new AddSurveyMongoRepository()
+const makeSut = (): SurveyMongoRepository => {
+  return new SurveyMongoRepository()
 }
 describe('AddSurvey Mongo Repository', () => {
   beforeAll(async () => { await MongoHelper.connect(process.env.MONGO_URL) })
