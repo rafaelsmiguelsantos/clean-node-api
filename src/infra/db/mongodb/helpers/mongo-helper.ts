@@ -14,7 +14,7 @@ export const MongoHelper = {
     this.cliente = null
   },
 
-  getCollection (name: string): Collection {
+  async getCollection (name: string): Promise<Collection> {
     return this.client.db().collection(name)
   },
 

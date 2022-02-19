@@ -1,10 +1,11 @@
-import { SurveysModel } from '../../../domain/models/surveys'
+import { SurveyModel } from '../../../domain/models/surveys'
+import { ILoadSurveys } from '../../../domain/usecases/load-surveys'
 import { ILoadSurveysRepository } from '../../protocols/db/load-surveys-repository'
 
-export class DbLoadSurveys implements ILoadSurveysRepository {
+export class DbLoadSurveys implements ILoadSurveys {
   constructor (private readonly loadSurveysRepository: ILoadSurveysRepository) { }
-  async loadAllSurveys (): Promise<SurveysModel[]> {
-    const surveys = await this.loadSurveysRepository.loadAllSurveys()
+  async load (): Promise<SurveyModel[]> {
+    const surveys = await this.loadSurveysRepository.loadAll()
     return surveys
   }
 }

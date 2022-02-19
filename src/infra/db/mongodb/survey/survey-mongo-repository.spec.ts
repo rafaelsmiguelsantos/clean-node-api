@@ -19,6 +19,23 @@ describe('AddSurvey Mongo Repository', () => {
 
   describe('addSurveys', () => {
     test('Should add survey on success', async () => {
+      await surveyCollection.insertMany([{
+        question: 'any_question',
+        answers: [{
+          image: 'any_image',
+          answer: 'any_answer'
+        }, { answer: 'any_second' }],
+        date: new Date()
+      },
+      {
+        question: 'other_question',
+        answers: [{
+          image: 'other_image',
+          answer: 'other_answer'
+        }, { answer: 'other_second' }],
+        date: new Date()
+      }
+      ])
       const sut = makeSut()
       await sut.addSurvey({
         question: 'any_question',
