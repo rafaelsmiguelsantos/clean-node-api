@@ -43,6 +43,31 @@ describe('Survey Routes', () => {
     await accountCollection.deleteMany({})
   })
 
+  describe('GET /surveys', () => {
+    test('Should return 403 on LoadSurveys without accessToken', async () => {
+      await request(app)
+        .get('/api/surveys')
+        .expect(403)
+    })
+  })
+})
+
+describe('Survey Routes', () => {
+  beforeAll(async () => {
+    await MongoHelper.connect(process.env.MONGO_URL)
+  })
+
+  afterAll(async () => {
+    await MongoHelper.disconnect()
+  })
+
+  beforeEach(async () => {
+    surveyCollection = await MongoHelper.getCollection('surveys')
+    await surveyCollection.deleteMany({})
+    accountCollection = await MongoHelper.getCollection('accounts')
+    await accountCollection.deleteMany({})
+  })
+
   describe('POST /surveys', () => {
     test('Should return 403 on addSurvey withou accessToken', async () => {
       await request(app)
