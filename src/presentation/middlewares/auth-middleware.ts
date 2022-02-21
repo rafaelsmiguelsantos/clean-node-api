@@ -2,7 +2,7 @@ import { ILoadAccountByToken, IMiddleware, HttpRequest, HttpResponse, forbidden,
 import { AccessDeniedError } from '../errors'
 
 export class AuthMiddleware implements IMiddleware {
-  constructor (private readonly loadAccountByToken: ILoadAccountByToken, private readonly role?: string) {}
+  constructor (private readonly loadAccountByToken: ILoadAccountByToken, private readonly role?: string) { }
 
   async handle (httpRequest: HttpRequest): Promise<HttpResponse> {
     try {
