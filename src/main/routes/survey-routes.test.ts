@@ -50,6 +50,23 @@ describe('Survey Routes', () => {
         .expect(403)
     })
   })
+
+  test('Should return 204 on add survey with valid accessToken', async () => {
+    const accessToken = await mockAccessToken()
+    await request(app)
+      .get('/api/surveys')
+      .set('x-access-token', accessToken)
+      .send({
+        question: 'Question',
+        answers: [{
+          answer: 'Answer 1',
+          image: 'http://image-name.com'
+        }, {
+          answer: 'Answer 2'
+        }]
+      })
+      .expect(204)
+  })
 })
 
 describe('Survey Routes', () => {
