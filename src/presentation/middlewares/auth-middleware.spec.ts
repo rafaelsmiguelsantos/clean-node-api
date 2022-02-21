@@ -1,6 +1,6 @@
+import { ILoadAccountByToken, forbidden, ok, serverError } from './index'
 import { AccessDeniedError } from '../errors'
 import { AuthMiddleware } from './auth-middleware'
-import { ILoadAccountByToken, forbidden, ok, serverError } from './index'
 import { AccountModel } from '../../domain/models/account'
 import { HttpRequest } from '../protocols'
 
