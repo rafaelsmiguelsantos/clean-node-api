@@ -1,6 +1,6 @@
 import { ValidationComposite } from './validation-composite'
-import { MissingParamError } from '../../presentation/errors'
-import { IValidation } from '../../presentation/protocols/validation'
+import { MissingParamError } from '@/presentation/errors'
+import { IValidation } from '@/presentation/protocols/validation'
 
 type SutTypes = {
   sut: ValidationComposite

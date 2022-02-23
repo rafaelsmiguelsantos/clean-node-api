@@ -1,6 +1,6 @@
-import { InvalidParamError } from '../../presentation/errors'
+import { InvalidParamError } from '@/presentation/errors'
 import { EmailValidator } from '../protocols/email-validator'
-import { IValidation } from '../../presentation/protocols/validation'
+import { IValidation } from '@/presentation/protocols/validation'
 
 export class EmailValidation implements IValidation {
   constructor (private readonly fieldName: string, private readonly emailValidator: EmailValidator) { }
