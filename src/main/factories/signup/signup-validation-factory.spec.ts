@@ -11,7 +11,7 @@ const makeEMailValitor = (): EmailValidator => {
   }
   return new EmailValidatorStub()
 }
-jest.mock('../../../validation/validators/validation-composite.ts')
+jest.mock('@/validation/validators/validation-composite.ts')
 
 describe('SignUpValidation Factory', () => {
   test('Should call ValidationComposite with all validations', () => {
