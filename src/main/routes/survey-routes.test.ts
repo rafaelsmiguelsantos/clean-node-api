@@ -10,8 +10,8 @@ let accountCollection: Collection
 
 const mockAccessToken = async (): Promise<string> => {
   const res = await accountCollection.insertOne({
-    name: 'Camila',
-    email: 'camila@mail.com',
+    name: 'Rafael',
+    email: 'rafael@mail.com',
     password: '123',
     role: 'admin'
   })
@@ -70,13 +70,9 @@ describe('Survey Routes', () => {
 })
 
 describe('Survey Routes', () => {
-  beforeAll(async () => {
-    await MongoHelper.connect(process.env.MONGO_URL)
-  })
+  beforeAll(async () => { await MongoHelper.connect(process.env.MONGO_URL) })
 
-  afterAll(async () => {
-    await MongoHelper.disconnect()
-  })
+  afterAll(async () => { await MongoHelper.disconnect() })
 
   beforeEach(async () => {
     surveyCollection = await MongoHelper.getCollection('surveys')

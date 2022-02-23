@@ -1,10 +1,10 @@
 
 import { Router } from 'express'
-import { adaptMiddleware } from '../adapters/express-middleware-adapter'
-import { adaptRoutes } from '../adapters/express-routes-adapter'
-import { makeSurveyController } from '../factories/add-survey/add-survey-controller-factory'
-import { makeLoadSurveysController } from '../factories/load-surveys/load-surveys-controller-factory'
-import { makeAuthMiddleware } from '../factories/middlewares/auth-middleware-factory'
+import { adaptMiddleware } from '@/main/adapters/express-middleware-adapter'
+import { adaptRoutes } from '@/main/adapters/express-routes-adapter'
+import { makeSurveyController } from '@/main/factories/add-survey/add-survey-controller-factory'
+import { makeLoadSurveysController } from '@/main/factories/load-surveys/load-surveys-controller-factory'
+import { makeAuthMiddleware } from '@/main/factories/middlewares/auth-middleware-factory'
 
 export default (router: Router): void => {
   const adminAuth = adaptMiddleware(makeAuthMiddleware('admin'))

@@ -3,7 +3,7 @@ import { DbAuthentication } from '@/data-layer/usecases/authentication/db-authen
 import { IAuthentication } from '@/domain/usecases/authentication'
 import { BcryptAdapter } from '@/infra/criptography/bcrypt-adapter/bcrypt-adapter'
 import { JwtAdapter } from '@/infra/criptography/jwt-adapter/jwt-adapter'
-import env from '../../env'
+import env from '@/main/env'
 
 export const makeDbAuthentication = (): IAuthentication => {
   const SALT = 12
