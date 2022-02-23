@@ -1,5 +1,5 @@
 import { badRequest, noContent, serverError } from '../../helpers/http/http-helper'
-import { IAddSurvey, AddSurveyModel } from '../../../domain/usecases/add-survey'
+import { IAddSurvey, AddSurveyModel } from '@/domain/usecases/add-survey'
 import { AddSurveyController } from './add-survey-controller'
 import { HttpRequest } from '../../protocols'
 import { IValidation } from '../../protocols/validation'
@@ -52,13 +52,9 @@ const makeSut = (): SutTypes => {
 }
 
 describe('AddSurvey Controller', () => {
-  beforeAll(() => {
-    MockDate.set(new Date())
-  })
+  beforeAll(() => { MockDate.set(new Date()) })
 
-  afterAll(() => {
-    MockDate.reset()
-  })
+  afterAll(() => { MockDate.reset() })
 
   test('Should call validation with correct values', async () => {
     const { sut, validationStub } = makeSut()
