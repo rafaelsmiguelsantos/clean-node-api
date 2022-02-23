@@ -1,8 +1,8 @@
-import { IUpdateAccessTokenRepository, LoadAccountByEmailRepository } from '../../../../data-layer/usecases/authentication'
-import { LoadAccountByTokenRepository } from '../../../../data-layer/protocols/db/load-account-by-token-repository'
-import { AddAccountRepository } from '../../../../data-layer/protocols/db/add-account-repository'
-import { AddAccountModel } from '../../../../domain/usecases/add-account'
-import { AccountModel } from '../../../../domain/models/account'
+import { IUpdateAccessTokenRepository, LoadAccountByEmailRepository } from '@/data-layer/usecases/authentication'
+import { LoadAccountByTokenRepository } from '@/data-layer/protocols/db/load-account-by-token-repository'
+import { AddAccountRepository } from '@/data-layer/protocols/db/add-account-repository'
+import { AddAccountModel } from '@/domain/usecases/add-account'
+import { AccountModel } from '@/domain/models/account'
 import { MongoHelper } from '../helpers/mongo-helper'
 import { ObjectId } from 'mongodb'
 
@@ -11,7 +11,6 @@ export class AccountMongoRepository implements AddAccountRepository, LoadAccount
     const accountCollection = await MongoHelper.getCollection('accounts')
     console.log(accountData)
     await accountCollection.insertOne(accountData)
-
     return MongoHelper.map(accountData)
   }
 

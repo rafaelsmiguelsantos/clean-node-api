@@ -1,6 +1,6 @@
-import { Collection } from 'mongodb'
-import { MongoHelper } from '../helpers/mongo-helper'
 import { SurveyMongoRepository } from './survey-mongo-repository'
+import { MongoHelper } from '../helpers/mongo-helper'
+import { Collection } from 'mongodb'
 
 let surveyCollection: Collection
 
@@ -86,9 +86,7 @@ describe('AddSurvey Mongo Repository', () => {
 
     test('Should load empty list', async () => {
       const sut = makeSut()
-
       const surveys = await sut.loadAll()
-
       expect(surveys.length).toBe(0)
     })
   })

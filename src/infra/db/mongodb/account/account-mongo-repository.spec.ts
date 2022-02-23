@@ -1,15 +1,11 @@
-import { Collection } from 'mongodb'
-import { MongoHelper } from '../helpers/mongo-helper'
 import { AccountMongoRepository } from './account-mongo-repository'
+import { MongoHelper } from '../helpers/mongo-helper'
+import { Collection } from 'mongodb'
 
 let accountCollection: Collection
-beforeAll(async () => {
-  await MongoHelper.connect(process.env.MONGO_URL)
-})
+beforeAll(async () => { await MongoHelper.connect(process.env.MONGO_URL) })
 
-afterAll(async () => {
-  await MongoHelper.disconnect()
-})
+afterAll(async () => { await MongoHelper.disconnect() })
 
 beforeEach(async () => {
   accountCollection = await MongoHelper.getCollection('accounts')
