@@ -41,7 +41,7 @@ const makeFakeLoadAccountByEmailRepository = (): LoadAccountByEmailRepository =>
   return new LoadAccountByEmailRepositoryStub()
 }
 
-interface SutTypes {
+type SutTypes = {
   sut: DbAddAccount
   hasherStub: IHasher
   addAccountRepositoryStub: AddAccountRepository
