@@ -1,7 +1,7 @@
-import { ILoadAccountByToken } from '../../../presentation/middlewares'
-import { IDecrypter } from '../../protocols/criptography/decrypter'
-import { LoadAccountByTokenRepository } from '../../protocols/db/load-account-by-token-repository'
-import { AccountModel } from '../add-account'
+import { LoadAccountByTokenRepository } from '@/data-layer/protocols/db/load-account-by-token-repository'
+import { ILoadAccountByToken } from '@/presentation/middlewares'
+import { IDecrypter } from '@/data-layer/protocols/criptography/decrypter'
+import { AccountModel } from '@/domain/models/account'
 
 export class DbLoadAccountByToken implements ILoadAccountByToken {
   constructor (private readonly decrypter: IDecrypter, private readonly loadAccountByTokenRepository: LoadAccountByTokenRepository) { }

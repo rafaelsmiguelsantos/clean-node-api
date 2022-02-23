@@ -1,7 +1,7 @@
 import { HttpRequest, IAuthentication, AuthenticationModel } from './login-protocols'
-import { badRequest, ok, serverError, unauthorized } from '../../helpers/http/http-helper'
-import { MissingParamError } from '../../errors'
-import { LoginController } from './login-controller'
+import { badRequest, ok, serverError, unauthorized } from '@/presentation/helpers/http/http-helper'
+import { MissingParamError } from '@/presentation/errors'
+import { LoginController } from '@/presentation/controllers/login/login-controller'
 import { IValidation } from '../../protocols/validation'
 
 const makeAuthentication = (): IAuthentication => {
