@@ -39,7 +39,7 @@ const makeSut = (): SutTypes => {
   }
 }
 
-interface SutTypes {
+type SutTypes = {
   sut: DbLoadAccountByToken
   decrypterStub: IDecrypter
   loadAccountByTokenRepositoryStub: LoadAccountByTokenRepository

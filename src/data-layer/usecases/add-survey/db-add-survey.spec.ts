@@ -30,7 +30,7 @@ const makeSut = (): SutTypes => {
   }
 }
 
-interface SutTypes {
+type SutTypes = {
   sut: DbAddSurvey
   addSurveyRepositoryStub: IAddSurveyRepository
 }
