@@ -26,7 +26,7 @@ const makeLoadAccountByTokenStub = (): ILoadAccountByToken => {
   return new AddSurveyRepositoryStub()
 }
 
-interface SutTypes {
+type SutTypes = {
   sut: AuthMiddleware
   loadAccountByTokenStub: ILoadAccountByToken
 }

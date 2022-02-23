@@ -7,7 +7,7 @@ import { AccountModel } from '../../../domain/models/account'
 import { ok, serverError, badRequest, forbidden } from '../../helpers/http/http-helper'
 import { IValidation } from '../../protocols/validation'
 
-interface SutTypes {
+type SutTypes = {
   sut: SignUpController
   addAccountStub: IAddAccount
   validationStub: IValidation
