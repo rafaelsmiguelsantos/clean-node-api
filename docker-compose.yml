@@ -7,7 +7,7 @@ services:
     restart: always
     command: bash -c "npm install --only=prod && npm start"
     environment:
-      - PORT=5050
+      - PORT=8080
       - MONGO_URL=mongodb://mongo:27017/clean-typescript-api
       - JWT_SECRET_KEY="secret_key
     volumes:
