@@ -2,7 +2,7 @@ import { IAddSurveyRepository } from '@/data-layer/protocols/db/add-survey-repos
 import { ILoadSurveyByIdRepository } from '@/data-layer/protocols/db/load-survey-by-id'
 import { ILoadSurveysRepository } from '@/data-layer/protocols/db/load-surveys-repository'
 import { SurveyModel } from '@/domain/models/surveys'
-import { AddSurveyModel } from '@/domain/usecases/add-survey'
+import { AddSurveyModel } from '@/domain/usecases/survey/add-survey'
 import { MongoHelper } from '../helpers/mongo-helper'
 
 export class SurveyMongoRepository implements IAddSurveyRepository, ILoadSurveysRepository, ILoadSurveyByIdRepository {

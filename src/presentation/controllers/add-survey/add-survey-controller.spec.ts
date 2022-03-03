@@ -1,5 +1,5 @@
 import { badRequest, noContent, serverError } from '@/presentation/helpers/http/http-helper'
-import { IAddSurvey, AddSurveyModel } from '@/domain/usecases/add-survey'
+import { IAddSurvey, AddSurveyModel } from '@/domain/usecases/survey/add-survey'
 import { AddSurveyController } from './add-survey-controller'
 import { HttpRequest } from '../../protocols'
 import { IValidation } from '../../protocols/validation'
