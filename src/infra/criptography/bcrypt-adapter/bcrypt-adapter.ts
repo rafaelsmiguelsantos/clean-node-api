@@ -1,4 +1,4 @@
-import { IHashComparer } from '@/data-layer/usecases/authentication'
+import { IHashComparer } from '@/data-layer/usecases/account/authentication'
 import { IHasher } from '@/data-layer/protocols/criptography/hasher'
 import bcrypt from 'bcrypt'
 

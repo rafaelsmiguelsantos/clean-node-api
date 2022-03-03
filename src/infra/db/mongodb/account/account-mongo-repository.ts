@@ -1,4 +1,4 @@
-import { IUpdateAccessTokenRepository, LoadAccountByEmailRepository } from '@/data-layer/usecases/authentication'
+import { IUpdateAccessTokenRepository, LoadAccountByEmailRepository } from '@/data-layer/usecases/account/authentication'
 import { LoadAccountByTokenRepository } from '@/data-layer/protocols/db/load-account-by-token-repository'
 import { AddAccountRepository } from '@/data-layer/protocols/db/add-account-repository'
 import { AddAccountModel } from '@/domain/usecases/add-account'
