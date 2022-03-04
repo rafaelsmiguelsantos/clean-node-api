@@ -1,11 +1,11 @@
 import { ILoadSurveyById } from '@/domain/usecases/survey/load-survey-by-id'
 import { InvalidParamError } from '@/presentation/errors'
-import { forbidden, serverError } from '@/presentation/middlewares'
+import { forbidden, serverError, ok } from '@/presentation/middlewares'
 import { HttpRequest, SurveyModel } from '../load-surveys/load-surveys-protocols'
 import { SaveSurveyResultController } from './save-survey-result-controller'
-import MockDate from 'mockdate'
 import { ISaveSurveyResult, SaveSurveyResultModel } from '@/domain/usecases/survey-result/save-survey-result'
 import { SurveyResultModel } from '@/domain/models/survey-result'
+import MockDate from 'mockdate'
 
 const makeFakeRequest = (): HttpRequest => ({
   params: {
@@ -133,5 +133,11 @@ describe('Save Survey Result Controller', () => {
     })
     const response = await sut.handle(makeFakeRequest())
     expect(response).toEqual(serverError(new Error()))
+  })
+
+  test('Should return 200 on success', async () => {
+    const { sut } = makeSut()
+    const response = await sut.handle(makeFakeRequest())
+    expect(response).toEqual(ok(makeFakeSurveyResult()))
   })
 })
