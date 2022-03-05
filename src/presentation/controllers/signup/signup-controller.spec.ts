@@ -1,5 +1,5 @@
 import { SignUpController } from './signup-controller'
-import { HttpRequest, AddAccountParams, IAddAccount, IAuthentication, AuthenticationModel } from './signup-protocols'
+import { HttpRequest, AddAccountParams, IAddAccount, IAuthentication, AuthenticationParams } from './signup-protocols'
 import { EmailInUseError, MissingParamError, ServerError } from '@/presentation/errors'
 import { AccountModel } from '@/domain/models/account'
 import { ok, serverError, badRequest, forbidden } from '@/presentation/helpers/http/http-helper'
@@ -14,7 +14,7 @@ type SutTypes = {
 
 const makeAuthentication = (): IAuthentication => {
   class AuthenticationStub implements IAuthentication {
-    async auth (authentication: AuthenticationModel): Promise<string> {
+    async auth (authentication: AuthenticationParams): Promise<string> {
       return new Promise(resolve => resolve('any_token'))
     }
   }
