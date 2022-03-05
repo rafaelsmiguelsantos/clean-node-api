@@ -5,7 +5,7 @@ import { HttpRequest } from '../../protocols'
 import { IValidation } from '../../protocols/validation'
 import MockDate from 'mockdate'
 
-const makeFakeRequest = (): HttpRequest => ({
+const mockFakeRequest = (): HttpRequest => ({
   body: {
     question: 'any_question',
     answers: [{
@@ -59,7 +59,7 @@ describe('AddSurvey Controller', () => {
   test('Should call validation with correct values', async () => {
     const { sut, validationStub } = makeSut()
     const validateSpy = jest.spyOn(validationStub, 'validate')
-    const httpRequest = makeFakeRequest()
+    const httpRequest = mockFakeRequest()
     await sut.handle(httpRequest)
     expect(validateSpy).toHaveBeenCalledWith(httpRequest.body)
   })
@@ -67,14 +67,14 @@ describe('AddSurvey Controller', () => {
   test('Should return 400 if Validation Fails', async () => {
     const { sut, validationStub } = makeSut()
     jest.spyOn(validationStub, 'validate').mockReturnValueOnce(new Error())
-    const response = await sut.handle(makeFakeRequest())
+    const response = await sut.handle(mockFakeRequest())
     expect(response).toEqual(badRequest(new Error()))
   })
 
   test('Should call AddSurvey with correct values', async () => {
     const { sut, addSurveyStub } = makeSut()
     const addSurveySpy = jest.spyOn(addSurveyStub, 'addSurvey')
-    const httpRequest = makeFakeRequest()
+    const httpRequest = mockFakeRequest()
     await sut.handle(httpRequest)
     expect(addSurveySpy).toHaveBeenCalledWith(httpRequest.body)
   })
@@ -84,13 +84,13 @@ describe('AddSurvey Controller', () => {
     jest.spyOn(validationStub, 'validate').mockImplementationOnce(() => {
       throw new Error()
     })
-    const response = await sut.handle(makeFakeRequest())
+    const response = await sut.handle(mockFakeRequest())
     expect(response).toEqual(serverError(new Error()))
   })
 
   test('Should return 500 if AddSurvey trhows', async () => {
     const { sut } = makeSut()
-    const response = await sut.handle(makeFakeRequest())
+    const response = await sut.handle(mockFakeRequest())
     expect(response).toEqual(noContent())
   })
 })

@@ -7,7 +7,7 @@ import { ISaveSurveyResult, SaveSurveyResultParams } from '@/domain/usecases/sur
 import { SurveyResultModel } from '@/domain/models/survey-result'
 import MockDate from 'mockdate'
 
-const makeFakeRequest = (): HttpRequest => ({
+const mockFakeRequest = (): HttpRequest => ({
   params: {
     surveyId: 'any_survey_id'
   },
@@ -17,7 +17,7 @@ const makeFakeRequest = (): HttpRequest => ({
   accountId: 'any_account_id'
 })
 
-const makeFakeSurveys = (): SurveyModel => ({
+const mockFakeSurveys = (): SurveyModel => ({
   id: 'any',
   question: 'any_question',
   answers: [{
@@ -27,7 +27,7 @@ const makeFakeSurveys = (): SurveyModel => ({
   date: new Date()
 })
 
-const makeFakeSurveyResult = (): SurveyResultModel => ({
+const mockFakeSurveyResult = (): SurveyResultModel => ({
   id: 'valid_id',
   surveyId: 'valid_survey_id',
   accountId: 'valid_account_id',
@@ -38,7 +38,7 @@ const makeFakeSurveyResult = (): SurveyResultModel => ({
 const makeLoadSurveyById = (): ILoadSurveyById => {
   class LoadSurveyByIdStub implements ILoadSurveyById {
     async loadById (id: string): Promise<SurveyModel> {
-      return new Promise(resolve => resolve(makeFakeSurveys()))
+      return new Promise(resolve => resolve(mockFakeSurveys()))
     }
   }
   return new LoadSurveyByIdStub()
@@ -47,7 +47,7 @@ const makeLoadSurveyById = (): ILoadSurveyById => {
 const makeSaveSurveyResult = (): ISaveSurveyResult => {
   class SaveSurveyResultStub implements ISaveSurveyResult {
     async save (data: SaveSurveyResultParams): Promise<SurveyResultModel> {
-      return new Promise(resolve => resolve(makeFakeSurveyResult()))
+      return new Promise(resolve => resolve(mockFakeSurveyResult()))
     }
   }
   return new SaveSurveyResultStub()
@@ -81,14 +81,14 @@ describe('Save Survey Result Controller', () => {
   test('Should call LoadSurveyById with correct values', async () => {
     const { sut, loadSurveyByIdStub } = makeSut()
     const loadByIdSpy = jest.spyOn(loadSurveyByIdStub, 'loadById')
-    await sut.handle(makeFakeRequest())
+    await sut.handle(mockFakeRequest())
     expect(loadByIdSpy).toHaveBeenCalledWith('any_survey_id')
   })
 
   test('Should return 403 if LoadSurveyById returns null', async () => {
     const { sut, loadSurveyByIdStub } = makeSut()
     jest.spyOn(loadSurveyByIdStub, 'loadById').mockReturnValueOnce(new Promise(resolve => resolve(null)))
-    const httpResponse = await sut.handle(makeFakeRequest())
+    const httpResponse = await sut.handle(mockFakeRequest())
     expect(httpResponse).toEqual(forbidden(new InvalidParamError('surveyId')))
   })
 
@@ -97,7 +97,7 @@ describe('Save Survey Result Controller', () => {
     jest.spyOn(loadSurveyByIdStub, 'loadById').mockImplementationOnce(() => {
       throw new Error()
     })
-    const response = await sut.handle(makeFakeRequest())
+    const response = await sut.handle(mockFakeRequest())
     expect(response).toEqual(serverError(new Error()))
   })
 
@@ -117,7 +117,7 @@ describe('Save Survey Result Controller', () => {
   test('Should call LoadSurveyById with correct values', async () => {
     const { sut, saveSurveyResultStub } = makeSut()
     const saveSpy = jest.spyOn(saveSurveyResultStub, 'save')
-    await sut.handle(makeFakeRequest())
+    await sut.handle(mockFakeRequest())
     expect(saveSpy).toHaveBeenCalledWith({
       surveyId: 'any_survey_id',
       accountId: 'any_account_id',
@@ -131,13 +131,13 @@ describe('Save Survey Result Controller', () => {
     jest.spyOn(saveSurveyResultStub, 'save').mockImplementationOnce(() => {
       throw new Error()
     })
-    const response = await sut.handle(makeFakeRequest())
+    const response = await sut.handle(mockFakeRequest())
     expect(response).toEqual(serverError(new Error()))
   })
 
   test('Should return 200 on success', async () => {
     const { sut } = makeSut()
-    const response = await sut.handle(makeFakeRequest())
-    expect(response).toEqual(ok(makeFakeSurveyResult()))
+    const response = await sut.handle(mockFakeRequest())
+    expect(response).toEqual(ok(mockFakeSurveyResult()))
   })
 })
