@@ -53,7 +53,7 @@ const makeSaveSurveyResult = (): ISaveSurveyResult => {
   return new SaveSurveyResultStub()
 }
 
-const makeSut = (): SutTypes => {
+const mockSut = (): SutTypes => {
   const loadSurveyByIdStub = makeLoadSurveyById()
   const saveSurveyResultStub = makeSaveSurveyResult()
   const sut = new SaveSurveyResultController(loadSurveyByIdStub, saveSurveyResultStub)
@@ -79,21 +79,21 @@ describe('Save Survey Result Controller', () => {
     MockDate.reset()
   })
   test('Should call LoadSurveyById with correct values', async () => {
-    const { sut, loadSurveyByIdStub } = makeSut()
+    const { sut, loadSurveyByIdStub } = mockSut()
     const loadByIdSpy = jest.spyOn(loadSurveyByIdStub, 'loadById')
     await sut.handle(mockFakeRequest())
     expect(loadByIdSpy).toHaveBeenCalledWith('any_survey_id')
   })
 
   test('Should return 403 if LoadSurveyById returns null', async () => {
-    const { sut, loadSurveyByIdStub } = makeSut()
+    const { sut, loadSurveyByIdStub } = mockSut()
     jest.spyOn(loadSurveyByIdStub, 'loadById').mockReturnValueOnce(new Promise(resolve => resolve(null)))
     const httpResponse = await sut.handle(mockFakeRequest())
     expect(httpResponse).toEqual(forbidden(new InvalidParamError('surveyId')))
   })
 
   test('Should return 500 if LoadSurveys throws', async () => {
-    const { sut, loadSurveyByIdStub } = makeSut()
+    const { sut, loadSurveyByIdStub } = mockSut()
     jest.spyOn(loadSurveyByIdStub, 'loadById').mockImplementationOnce(() => {
       throw new Error()
     })
@@ -102,7 +102,7 @@ describe('Save Survey Result Controller', () => {
   })
 
   test('Should return 403 if an invalid answers is provided', async () => {
-    const { sut } = makeSut()
+    const { sut } = mockSut()
     const httpResponse = await sut.handle({
       params: {
         surveyId: 'any_survey_id'
@@ -115,7 +115,7 @@ describe('Save Survey Result Controller', () => {
   })
 
   test('Should call LoadSurveyById with correct values', async () => {
-    const { sut, saveSurveyResultStub } = makeSut()
+    const { sut, saveSurveyResultStub } = mockSut()
     const saveSpy = jest.spyOn(saveSurveyResultStub, 'save')
     await sut.handle(mockFakeRequest())
     expect(saveSpy).toHaveBeenCalledWith({
@@ -127,7 +127,7 @@ describe('Save Survey Result Controller', () => {
   })
 
   test('Should return 500 if SaveSurveyResultController throws', async () => {
-    const { sut, saveSurveyResultStub } = makeSut()
+    const { sut, saveSurveyResultStub } = mockSut()
     jest.spyOn(saveSurveyResultStub, 'save').mockImplementationOnce(() => {
       throw new Error()
     })
@@ -136,7 +136,7 @@ describe('Save Survey Result Controller', () => {
   })
 
   test('Should return 200 on success', async () => {
-    const { sut } = makeSut()
+    const { sut } = mockSut()
     const response = await sut.handle(mockFakeRequest())
     expect(response).toEqual(ok(mockFakeSurveyResult()))
   })

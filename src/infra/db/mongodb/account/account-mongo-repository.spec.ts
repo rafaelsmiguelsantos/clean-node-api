@@ -12,13 +12,13 @@ beforeEach(async () => {
   await accountCollection.deleteMany({})
 })
 
-const makeSut = (): AccountMongoRepository => {
+const mockSut = (): AccountMongoRepository => {
   return new AccountMongoRepository()
 }
 
 describe('Account Mongo Repository', () => {
   test('Should return an account on add success', async () => {
-    const sut = makeSut()
+    const sut = mockSut()
     const account = await sut.add({
       name: 'any',
       email: 'any_email@mail.com',
@@ -33,7 +33,7 @@ describe('Account Mongo Repository', () => {
   })
 
   test('Should return an account on loadByEmail success', async () => {
-    const sut = makeSut()
+    const sut = mockSut()
     await accountCollection.insertOne({
       name: 'any',
       email: 'any_email@mail.com',
@@ -49,13 +49,13 @@ describe('Account Mongo Repository', () => {
   })
 
   test('Should return null if loadByEmail fails', async () => {
-    const sut = makeSut()
+    const sut = mockSut()
     const account = await sut.loadByEmail('any_email@mail.com')
     expect(account).toBeFalsy()
   })
 
   test('Should update the account accessToken on updateAccessToken success', async () => {
-    const sut = makeSut()
+    const sut = mockSut()
     const res = await accountCollection.insertOne({
       name: 'any_name',
       email: 'any_email@mail.com',
@@ -73,7 +73,7 @@ describe('Account Mongo Repository', () => {
 
 describe('loadByToken()', () => {
   test('Should return an account on loadByToken without role', async () => {
-    const sut = makeSut()
+    const sut = mockSut()
     await accountCollection.insertOne({
       name: 'any',
       email: 'any_email@mail.com',
@@ -89,7 +89,7 @@ describe('loadByToken()', () => {
   })
 
   test('Should return an account on loadByToken with admin role', async () => {
-    const sut = makeSut()
+    const sut = mockSut()
     await accountCollection.insertOne({
       name: 'any',
       email: 'any_email@mail.com',
@@ -106,13 +106,13 @@ describe('loadByToken()', () => {
   })
 
   test('Should return null if loadByToken fails', async () => {
-    const sut = makeSut()
+    const sut = mockSut()
     const account = await sut.loadByToken('any_email@mail.com')
     expect(account).toBeFalsy()
   })
 
   test('Should return null on loadByToken with invalid role', async () => {
-    const sut = makeSut()
+    const sut = mockSut()
     await accountCollection.insertOne({
       name: 'any',
       email: 'any_email@mail.com',
@@ -124,7 +124,7 @@ describe('loadByToken()', () => {
   })
 
   test('Should return an account on loadByToken if user is admin', async () => {
-    const sut = makeSut()
+    const sut = mockSut()
     await accountCollection.insertOne({
       name: 'any',
       email: 'any_email@mail.com',

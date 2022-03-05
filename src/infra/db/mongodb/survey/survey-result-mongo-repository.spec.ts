@@ -8,7 +8,7 @@ let surveyCollection: Collection
 let surveyResultCollection: Collection
 let surveyAccountCollection: Collection
 
-const makeSut = (): SurveyResultMongoRepository => {
+const mockSut = (): SurveyResultMongoRepository => {
   return new SurveyResultMongoRepository()
 }
 
@@ -51,7 +51,7 @@ describe('Survey Result Mongo Repository', () => {
     test('Should add a survey result if its new', async () => {
       const account = await makeAccount()
       const survey = await makeSurvey()
-      const sut = makeSut()
+      const sut = mockSut()
       const surveyResult = await sut.save({
         surveyId: survey.id,
         accountId: account.id,
@@ -72,7 +72,7 @@ describe('Survey Result Mongo Repository', () => {
         answer: survey.answers[0].answer,
         date: new Date()
       })
-      const sut = makeSut()
+      const sut = mockSut()
       const surveyResult = await sut.save({
         surveyId: survey.id,
         accountId: account.id,

@@ -40,7 +40,7 @@ type SutTypes = {
   loadSurveysRepositoryStub: ILoadSurveysRepository
 }
 
-const makeSut = (): SutTypes => {
+const mockSut = (): SutTypes => {
   const loadSurveysRepositoryStub = makeLoadSurveysRepositoryStub()
   const sut = new DbLoadSurveys(loadSurveysRepositoryStub)
   return {
@@ -54,20 +54,20 @@ describe('DbLoadSurveys', () => {
 
   afterAll(() => { MockDate.reset() })
   test('Should call LoadSurveysRepository', async () => {
-    const { sut, loadSurveysRepositoryStub } = makeSut()
+    const { sut, loadSurveysRepositoryStub } = mockSut()
     const surveysSpy = jest.spyOn(loadSurveysRepositoryStub, 'loadAll')
     await sut.load()
     expect(surveysSpy).toHaveBeenCalled()
   })
 
   test('Should return a list of Surveys on success', async () => {
-    const { sut } = makeSut()
+    const { sut } = mockSut()
     const httpResponse = await sut.load()
     expect(httpResponse).toEqual(mockFakeSurveys())
   })
 
   test('Should throw if LoadSurveysRepository throws', async () => {
-    const { sut, loadSurveysRepositoryStub } = makeSut()
+    const { sut, loadSurveysRepositoryStub } = mockSut()
     jest.spyOn(loadSurveysRepositoryStub, 'loadAll').mockReturnValueOnce(new Promise((resolve, reject) => reject(new Error())))
     const promise = sut.load()
     await expect(promise).rejects.toThrow()

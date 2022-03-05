@@ -4,7 +4,7 @@ import { Collection } from 'mongodb'
 
 let surveyCollection: Collection
 
-const makeSut = (): SurveyMongoRepository => {
+const mockSut = (): SurveyMongoRepository => {
   return new SurveyMongoRepository()
 }
 describe('AddSurvey Mongo Repository', () => {
@@ -36,7 +36,7 @@ describe('AddSurvey Mongo Repository', () => {
         date: new Date()
       }
       ])
-      const sut = makeSut()
+      const sut = mockSut()
       await sut.addSurvey({
         question: 'any_question',
         answers: [{
@@ -75,7 +75,7 @@ describe('AddSurvey Mongo Repository', () => {
         }
       ])
 
-      const sut = makeSut()
+      const sut = mockSut()
 
       const surveys = await sut.loadAll()
 
@@ -86,7 +86,7 @@ describe('AddSurvey Mongo Repository', () => {
     })
 
     test('Should load empty list', async () => {
-      const sut = makeSut()
+      const sut = mockSut()
       const surveys = await sut.loadAll()
       expect(surveys.length).toBe(0)
     })
@@ -107,7 +107,7 @@ describe('AddSurvey Mongo Repository', () => {
         }
       )
       const id = response.insertedId
-      const sut = makeSut()
+      const sut = mockSut()
       const survey = await sut.loadById(id)
 
       expect(survey).toBeTruthy()
@@ -115,7 +115,7 @@ describe('AddSurvey Mongo Repository', () => {
     })
 
     test('Should load empty list', async () => {
-      const sut = makeSut()
+      const sut = mockSut()
       const surveys = await sut.loadAll()
       expect(surveys.length).toBe(0)
     })
