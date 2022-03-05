@@ -13,7 +13,7 @@
 > ## Exceções
 
 1. ⛔️   Retorna erro **404** se a API não existir
-2. ⛔️   Retorna erro **403** se o survey_id passado na URL for inválido
+2. ✅   Retorna erro **403** se o survey_id passado na URL for inválido
 3. ✅   Retorna erro **403** se não for usuário
 4. ✅   Retorna erro **403** se a resposta enviada pelo client for uma resposta inválida
 5. ✅    Retorna erro **500** se der erro ao tentar criar o resultado da enquete
