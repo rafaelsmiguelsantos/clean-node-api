@@ -21,7 +21,7 @@ const makeAuthentication = (): IAuthentication => {
   return new AuthenticationStub()
 }
 
-const makeAddAccount = (): IAddAccount => {
+const mockAddAccount = (): IAddAccount => {
   class AddAccountStub implements IAddAccount {
     async add (account: AddAccountParams): Promise<AccountModel> {
       return new Promise(resolve => resolve(mockFakeAccount()))
@@ -57,7 +57,7 @@ const mockFakeRequest = (): HttpRequest => ({
 
 const mockSut = (): SutTypes => {
   const authenticationStub = makeAuthentication()
-  const addAccountStub = makeAddAccount()
+  const addAccountStub = mockAddAccount()
   const validationStub = makeValidation()
   const sut = new SignUpController(addAccountStub, validationStub, authenticationStub)
   return {

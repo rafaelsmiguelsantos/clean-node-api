@@ -12,7 +12,7 @@ const mockFakeSurveyData = (): AddSurveyParams => ({
   date: new Date()
 })
 
-const makeAddSurveyRepositoryStub = (): IAddSurveyRepository => {
+const mockAddSurveyRepositoryStub = (): IAddSurveyRepository => {
   class AddSurveyRepositoryStub implements IAddSurveyRepository {
     async addSurvey (surveyData: AddSurveyParams): Promise<void> {
       return new Promise(resolve => resolve())
@@ -22,7 +22,7 @@ const makeAddSurveyRepositoryStub = (): IAddSurveyRepository => {
 }
 
 const mockSut = (): SutTypes => {
-  const addSurveyRepositoryStub = makeAddSurveyRepositoryStub()
+  const addSurveyRepositoryStub = mockAddSurveyRepositoryStub()
   const sut = new DbAddSurvey(addSurveyRepositoryStub)
   return {
     sut,

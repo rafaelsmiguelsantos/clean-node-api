@@ -25,7 +25,7 @@ const makeValidation = (): IValidation => {
   return new ValidationStub()
 }
 
-const makeAddSurvey = (): IAddSurvey => {
+const mockAddSurvey = (): IAddSurvey => {
   class AddSurveyStub implements IAddSurvey {
     async addSurvey (data: AddSurveyParams): Promise<void> {
       return new Promise(resolve => resolve())
@@ -42,7 +42,7 @@ type SutTypes = {
 
 const mockSut = (): SutTypes => {
   const validationStub = makeValidation()
-  const addSurveyStub = makeAddSurvey()
+  const addSurveyStub = mockAddSurvey()
   const sut = new AddSurveyController(validationStub, addSurveyStub)
   return {
     sut,

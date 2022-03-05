@@ -14,7 +14,7 @@ const mockFakeAccountData = (): AddAccountParams => ({
   password: 'valid_password'
 })
 
-const makeAddAccountRepository = (): AddAccountRepository => {
+const mockAddAccountRepository = (): AddAccountRepository => {
   class AddAccountRepositoryStub implements AddAccountRepository {
     async add (accountData: AddAccountParams): Promise<AccountModel> {
       return await new Promise(resolve => resolve(mockFakeAccount()))
@@ -51,7 +51,7 @@ type SutTypes = {
 const mockSut = (): SutTypes => {
   const loadAccountByEmailRepositoryStub = mockFakeLoadAccountByEmailRepository()
   const hasherStub = mockHasher()
-  const addAccountRepositoryStub = makeAddAccountRepository()
+  const addAccountRepositoryStub = mockAddAccountRepository()
   const sut = new DbAddAccount(hasherStub, addAccountRepositoryStub, loadAccountByEmailRepositoryStub)
   return {
     loadAccountByEmailRepositoryStub,
