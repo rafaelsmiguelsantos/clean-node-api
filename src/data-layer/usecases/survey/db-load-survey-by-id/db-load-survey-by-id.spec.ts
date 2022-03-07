@@ -2,7 +2,7 @@ import { ILoadSurveyByIdRepository } from '@/data-layer/protocols/db/load-survey
 import { DbLoadSurveyById } from './db-load-survey-by-id'
 import { mockLoadSurveyByIdRepository } from '@/data-layer/test'
 import MockDate from 'mockdate'
-import { mockSurvey } from '@/domain/test/mock-survey'
+import { mockSurveyModel } from '@/domain/test/mock-survey'
 
 type SutTypes = {
   sut: DbLoadSurveyById
@@ -32,7 +32,7 @@ describe('Class DbLoadSurveyById', () => {
   test('Should return Survey on success', async () => {
     const { sut } = mockSut()
     const httpResponse = await sut.loadById('any_id')
-    expect(httpResponse).toEqual(mockSurvey())
+    expect(httpResponse).toEqual(mockSurveyModel())
   })
 
   test('Should throw if LoaSurveyByIdRepository throws', async () => {

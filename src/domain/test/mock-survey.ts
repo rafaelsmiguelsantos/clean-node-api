@@ -1,6 +1,6 @@
 import { SurveyModel } from '@/domain/models/surveys'
 
-export const mockSurvey = (): SurveyModel => {
+export const mockSurveyModel = (): SurveyModel => {
   return {
     id: 'any_id',
     question: 'any_question',
