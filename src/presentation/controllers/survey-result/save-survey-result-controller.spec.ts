@@ -27,7 +27,7 @@ const mockSurveys = (): SurveyModel => ({
   date: new Date()
 })
 
-const mockSurveyResult = (): SurveyResultModel => ({
+const mockSaveSurveyResultModel = (): SurveyResultModel => ({
   id: 'valid_id',
   surveyId: 'valid_survey_id',
   accountId: 'valid_account_id',
@@ -47,7 +47,7 @@ const makeLoadSurveyById = (): ILoadSurveyById => {
 const makeSaveSurveyResult = (): ISaveSurveyResult => {
   class SaveSurveyResultStub implements ISaveSurveyResult {
     async save (data: SaveSurveyResultParams): Promise<SurveyResultModel> {
-      return new Promise(resolve => resolve(mockSurveyResult()))
+      return new Promise(resolve => resolve(mockSaveSurveyResultModel()))
     }
   }
   return new SaveSurveyResultStub()
@@ -138,6 +138,6 @@ describe('Save Survey Result Controller', () => {
   test('Should return 200 on success', async () => {
     const { sut } = mockSut()
     const response = await sut.handle(mockRequest())
-    expect(response).toEqual(ok(mockSurveyResult()))
+    expect(response).toEqual(ok(mockSaveSurveyResultModel()))
   })
 })
