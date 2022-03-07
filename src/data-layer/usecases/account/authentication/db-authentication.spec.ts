@@ -1,3 +1,4 @@
+import { mockAccountModel } from '@/domain/test'
 import { DbAuthentication } from './db-authentication'
 
 import {
@@ -9,13 +10,6 @@ import {
   IUpdateAccessTokenRepository
 } from './index'
 
-const mockFakeAccount = (): AccountModel => ({
-  id: 'any_id',
-  name: 'any_name',
-  email: 'any_email@mail.com',
-  password: 'hashed_password'
-})
-
 const mockFakeAuthentication = (): AuthenticationParams => ({
   email: 'any_email@mail.com',
   password: 'any_password'
@@ -24,7 +18,7 @@ const mockFakeAuthentication = (): AuthenticationParams => ({
 const mockFakeLoadAccountByEmailRepository = (): LoadAccountByEmailRepository => {
   class LoadAccountByEmailRepositoryStub implements LoadAccountByEmailRepository {
     async loadByEmail (email: string): Promise<AccountModel> {
-      return new Promise(resolve => resolve(mockFakeAccount()))
+      return new Promise(resolve => resolve(mockAccountModel()))
     }
   }
   return new LoadAccountByEmailRepositoryStub()
@@ -106,7 +100,7 @@ describe('DbAuthentication UseCases', () => {
     const { sut, hashComparerStub } = mockSut()
     const compareSpy = jest.spyOn(hashComparerStub, 'compare')
     await sut.auth(mockFakeAuthentication())
-    expect(compareSpy).toHaveBeenCalledWith('any_password', 'hashed_password')
+    expect(compareSpy).toHaveBeenCalledWith('any_password', 'any_password')
   })
 
   test('Should throw if HashComparer throws', async () => {
