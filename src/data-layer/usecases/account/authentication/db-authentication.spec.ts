@@ -1,10 +1,10 @@
 import {
-  mockAuthentication,
   mockLoadAccountByEmailRepository,
   mockUpdateAccessTokenRepository
 } from '@/data-layer/test'
 
 import { mockEncrypter, mockHashComparer } from '@/data-layer/test/mock-criptography'
+import { mockAuthentication } from '@/domain/test'
 import { DbAuthentication } from './db-authentication'
 
 import {
