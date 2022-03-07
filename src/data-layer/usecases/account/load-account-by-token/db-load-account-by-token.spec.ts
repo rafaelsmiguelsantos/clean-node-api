@@ -1,7 +1,7 @@
 import { LoadAccountByTokenRepository } from '@/data-layer/protocols/db/load-account-by-token-repository'
 import { IDecrypter } from '@/data-layer/protocols/criptography/decrypter'
 import { DbLoadAccountByToken } from './db-load-account-by-token'
-import { mockAccountModel } from '@/domain/test'
+import { mockAddAccountModel } from '@/domain/test'
 import { mockDecrypter } from '@/data-layer/test/mock-criptography'
 import { mockLoadAccountByTokenRepository } from '@/data-layer/test'
 
@@ -55,7 +55,7 @@ describe('DbLoadAccountByToken Usecase', () => {
   test('Should return an account on success', async () => {
     const { sut } = mockSut()
     const account = await sut.load('any_token', 'any_role')
-    expect(account).toEqual(mockAccountModel())
+    expect(account).toEqual(mockAddAccountModel())
   })
 
   test('Should throw if Decrypter throws', async () => {
