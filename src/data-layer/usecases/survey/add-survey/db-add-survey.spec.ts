@@ -1,17 +1,8 @@
-import { AddSurveyParams } from '@/domain/usecases/survey/add-survey'
 import { DbAddSurvey } from './db-add-survey'
 import { IAddSurveyRepository } from '../../../protocols/db/add-survey-repository'
-import MockDate from 'mockdate'
 import { mockAddSurveyRepository } from '@/data-layer/test'
-
-const mockSurveyData = (): AddSurveyParams => ({
-  question: 'any_question',
-  answers: [{
-    image: 'any_image',
-    answer: 'any_answer'
-  }],
-  date: new Date()
-})
+import { mockSurveyData } from '@/domain/test'
+import MockDate from 'mockdate'
 
 const mockSut = (): SutTypes => {
   const addSurveyRepositoryStub = mockAddSurveyRepository()
