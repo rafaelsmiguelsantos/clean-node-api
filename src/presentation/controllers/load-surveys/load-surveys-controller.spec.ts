@@ -3,7 +3,7 @@ import { ILoadSurveys, SurveyModel } from './load-surveys-protocols'
 import { LoadSurveyController } from './load-surveys-controller'
 import MockDate from 'mockdate'
 
-const mockFakeSurveys = (): SurveyModel[] => {
+const mockSurveys = (): SurveyModel[] => {
   return [
     {
       id: 'any',
@@ -34,7 +34,7 @@ type SutTypes = {
 const makeLoadSurveys = (): ILoadSurveys => {
   class LoadSurveysStub implements ILoadSurveys {
     async load (): Promise<SurveyModel[]> {
-      return new Promise(resolve => resolve(mockFakeSurveys()))
+      return new Promise(resolve => resolve(mockSurveys()))
     }
   }
 
@@ -69,7 +69,7 @@ describe('LoadSurvey Controller', () => {
   test('Should return 200 on success', async () => {
     const { sut } = mockSut()
     const httpResponse = await sut.handle({})
-    expect(httpResponse).toEqual(ok(mockFakeSurveys()))
+    expect(httpResponse).toEqual(ok(mockSurveys()))
   })
 
   test('Should return 204 if LoadSurveys returns empty', async () => {

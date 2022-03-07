@@ -4,19 +4,19 @@ import { SurveyResultModel } from '@/domain/models/survey-result'
 import { ISaveSurveyResultRepository } from '@/data-layer/protocols/db/save-survey-result-repository'
 import { DbSaveSurveyResult } from './db-save-survey-result'
 
-const mockFakeSurveyResultData = (): SaveSurveyResultParams => ({
+const mockSurveyResultData = (): SaveSurveyResultParams => ({
   accountId: 'any_account_id',
   surveyId: 'any_survey_id',
   answer: 'any_answer',
   date: new Date()
 })
 
-const mockFakeSurveyResult = (): SurveyResultModel => Object.assign({}, mockFakeSurveyResultData(), { id: 'any_id' })
+const mockSurveyResult = (): SurveyResultModel => Object.assign({}, mockSurveyResultData(), { id: 'any_id' })
 
 const makeSaveSurveyResultRepositoryStub = (): ISaveSurveyResultRepository => {
   class SaveSurveyResultRepositoryStub implements ISaveSurveyResultRepository {
     async save (resultData: SaveSurveyResultParams): Promise<SurveyResultModel> {
-      return new Promise(resolve => resolve(mockFakeSurveyResult()))
+      return new Promise(resolve => resolve(mockSurveyResult()))
     }
   }
   return new SaveSurveyResultRepositoryStub()
@@ -44,7 +44,7 @@ describe('DbSaveSurveyResult Usecase', () => {
   test('Should ISaveSurveyResultRepository with correct values', async () => {
     const { sut, saveSurveyResultRepositoryStub } = mockSut()
     const addSurveySpy = jest.spyOn(saveSurveyResultRepositoryStub, 'save')
-    const surveyResultData = mockFakeSurveyResultData()
+    const surveyResultData = mockSurveyResultData()
     await sut.save(surveyResultData)
     expect(addSurveySpy).toHaveBeenCalledWith(surveyResultData)
   })
@@ -52,13 +52,13 @@ describe('DbSaveSurveyResult Usecase', () => {
   test('Should throw if ISaveSurveyResultRepository throws', async () => {
     const { sut, saveSurveyResultRepositoryStub } = mockSut()
     jest.spyOn(saveSurveyResultRepositoryStub, 'save').mockReturnValueOnce(new Promise((resolve, reject) => reject(new Error())))
-    const promise = sut.save(mockFakeSurveyResultData())
+    const promise = sut.save(mockSurveyResultData())
     await expect(promise).rejects.toThrow()
   })
 
   test('Should return SurveyResult on success', async () => {
     const { sut } = mockSut()
-    const surveyResultData = await sut.save(mockFakeSurveyResultData())
-    expect(surveyResultData).toEqual(mockFakeSurveyResult())
+    const surveyResultData = await sut.save(mockSurveyResultData())
+    expect(surveyResultData).toEqual(mockSurveyResult())
   })
 })

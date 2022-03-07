@@ -3,7 +3,7 @@ import { DbLoadSurveys } from './db-load-surveys-repository'
 import { SurveyModel } from '@/domain/models/surveys'
 import MockDate from 'mockdate'
 
-const mockFakeSurveys = (): SurveyModel[] => {
+const mockSurveys = (): SurveyModel[] => {
   return [
     {
       id: 'any',
@@ -29,7 +29,7 @@ const mockFakeSurveys = (): SurveyModel[] => {
 const makeLoadSurveysRepositoryStub = (): ILoadSurveysRepository => {
   class LoadSurveysRepositoryStub implements ILoadSurveysRepository {
     async loadAll (): Promise<SurveyModel[]> {
-      return new Promise(resolve => resolve(mockFakeSurveys()))
+      return new Promise(resolve => resolve(mockSurveys()))
     }
   }
   return new LoadSurveysRepositoryStub()
@@ -63,7 +63,7 @@ describe('DbLoadSurveys', () => {
   test('Should return a list of Surveys on success', async () => {
     const { sut } = mockSut()
     const httpResponse = await sut.load()
-    expect(httpResponse).toEqual(mockFakeSurveys())
+    expect(httpResponse).toEqual(mockSurveys())
   })
 
   test('Should throw if LoadSurveysRepository throws', async () => {

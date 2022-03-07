@@ -3,7 +3,7 @@ import { DbAddSurvey } from './db-add-survey'
 import { IAddSurveyRepository } from '../../../protocols/db/add-survey-repository'
 import MockDate from 'mockdate'
 
-const mockFakeSurveyData = (): AddSurveyParams => ({
+const mockSurveyData = (): AddSurveyParams => ({
   question: 'any_question',
   answers: [{
     image: 'any_image',
@@ -47,7 +47,7 @@ describe('DbAddSurvey Usecase', () => {
   test('Should AddSurveyRepository with correct values', async () => {
     const { sut, addSurveyRepositoryStub } = mockSut()
     const addSurveySpy = jest.spyOn(addSurveyRepositoryStub, 'addSurvey')
-    const surveyData = mockFakeSurveyData()
+    const surveyData = mockSurveyData()
     await sut.addSurvey(surveyData)
     expect(addSurveySpy).toHaveBeenCalledWith(surveyData)
   })
@@ -55,7 +55,7 @@ describe('DbAddSurvey Usecase', () => {
   test('Should throw if AddSurveyRepository throws', async () => {
     const { sut, addSurveyRepositoryStub } = mockSut()
     jest.spyOn(addSurveyRepositoryStub, 'addSurvey').mockReturnValueOnce(new Promise((resolve, reject) => reject(new Error())))
-    const promise = sut.addSurvey(mockFakeSurveyData())
+    const promise = sut.addSurvey(mockSurveyData())
     await expect(promise).rejects.toThrow()
   })
 })

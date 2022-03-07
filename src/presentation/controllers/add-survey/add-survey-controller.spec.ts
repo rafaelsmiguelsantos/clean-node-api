@@ -5,7 +5,7 @@ import { HttpRequest } from '../../protocols'
 import { IValidation } from '../../protocols/validation'
 import MockDate from 'mockdate'
 
-const mockFakeRequest = (): HttpRequest => ({
+const mockRequest = (): HttpRequest => ({
   body: {
     question: 'any_question',
     answers: [{
@@ -59,7 +59,7 @@ describe('AddSurvey Controller', () => {
   test('Should call validation with correct values', async () => {
     const { sut, validationStub } = mockSut()
     const validateSpy = jest.spyOn(validationStub, 'validate')
-    const httpRequest = mockFakeRequest()
+    const httpRequest = mockRequest()
     await sut.handle(httpRequest)
     expect(validateSpy).toHaveBeenCalledWith(httpRequest.body)
   })
@@ -67,14 +67,14 @@ describe('AddSurvey Controller', () => {
   test('Should return 400 if Validation Fails', async () => {
     const { sut, validationStub } = mockSut()
     jest.spyOn(validationStub, 'validate').mockReturnValueOnce(new Error())
-    const response = await sut.handle(mockFakeRequest())
+    const response = await sut.handle(mockRequest())
     expect(response).toEqual(badRequest(new Error()))
   })
 
   test('Should call AddSurvey with correct values', async () => {
     const { sut, addSurveyStub } = mockSut()
     const addSurveySpy = jest.spyOn(addSurveyStub, 'addSurvey')
-    const httpRequest = mockFakeRequest()
+    const httpRequest = mockRequest()
     await sut.handle(httpRequest)
     expect(addSurveySpy).toHaveBeenCalledWith(httpRequest.body)
   })
@@ -84,13 +84,13 @@ describe('AddSurvey Controller', () => {
     jest.spyOn(validationStub, 'validate').mockImplementationOnce(() => {
       throw new Error()
     })
-    const response = await sut.handle(mockFakeRequest())
+    const response = await sut.handle(mockRequest())
     expect(response).toEqual(serverError(new Error()))
   })
 
   test('Should return 500 if AddSurvey trhows', async () => {
     const { sut } = mockSut()
-    const response = await sut.handle(mockFakeRequest())
+    const response = await sut.handle(mockRequest())
     expect(response).toEqual(noContent())
   })
 })
