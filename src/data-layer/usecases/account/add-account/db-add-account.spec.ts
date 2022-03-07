@@ -1,6 +1,7 @@
 import { AccountModel, AddAccountParams, AddAccountRepository, IHasher, LoadAccountByEmailRepository } from './index'
 import { DbAddAccount } from './db-add-account'
 import { mockAccountModel, mockAccountParams, throwNewError } from '@/domain/test'
+import { mockHasher } from '@/data-layer/test/mock-criptography'
 
 const mockAddAccountRepository = (): AddAccountRepository => {
   class AddAccountRepositoryStub implements AddAccountRepository {
@@ -9,15 +10,6 @@ const mockAddAccountRepository = (): AddAccountRepository => {
     }
   }
   return new AddAccountRepositoryStub()
-}
-
-const mockHasher = (): IHasher => {
-  class HasherStub implements IHasher {
-    async hash (value: string): Promise<string> {
-      return await new Promise<string>(resolve => resolve('hashed_password'))
-    }
-  }
-  return new HasherStub()
 }
 
 const mockFakeLoadAccountByEmailRepository = (): LoadAccountByEmailRepository => {
