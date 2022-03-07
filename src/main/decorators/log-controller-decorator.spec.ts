@@ -3,15 +3,7 @@ import { ILoggerErrorRepository } from '@/data-layer/protocols/db/logger-error-r
 import { serverError, ok } from '@/presentation/helpers/http/http-helper'
 import { AccountModel } from '@/domain/models/account'
 import { LogControllerDecorator } from './log-controller-decorator'
-
-const makeLogErrorRepository = (): ILoggerErrorRepository => {
-  class LoggerErrorRepositoryStub implements ILoggerErrorRepository {
-    async loggerError (stack: string): Promise<void> {
-      return new Promise(resolve => resolve())
-    }
-  }
-  return new LoggerErrorRepositoryStub()
-}
+import { mockLogErrorRepository } from '@/data-layer/test'
 
 const makeController = (): Controller => {
   class ControllerStub implements Controller {
@@ -24,7 +16,7 @@ const makeController = (): Controller => {
 
 const mockSut = (): SutTypes => {
   const controllerStub = makeController()
-  const loggerErrorRepositoryStub = makeLogErrorRepository()
+  const loggerErrorRepositoryStub = mockLogErrorRepository()
   const sut = new LogControllerDecorator(controllerStub, loggerErrorRepositoryStub)
   return {
     sut,
