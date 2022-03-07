@@ -1,19 +1,18 @@
-import { mockLoadAccountByEmailRepository, mockUpdateAccessTokenRepository } from '@/data-layer/test'
+import {
+  mockAuthentication,
+  mockLoadAccountByEmailRepository,
+  mockUpdateAccessTokenRepository
+} from '@/data-layer/test'
+
 import { mockEncrypter, mockHashComparer } from '@/data-layer/test/mock-criptography'
 import { DbAuthentication } from './db-authentication'
 
 import {
-  AuthenticationParams,
   IHashComparer,
   IEncrypter,
   LoadAccountByEmailRepository,
   IUpdateAccessTokenRepository
 } from './index'
-
-const mockAuthentication = (): AuthenticationParams => ({
-  email: 'any_email@mail.com',
-  password: 'any_password'
-})
 
 type SutTypes = {
   sut: DbAuthentication
