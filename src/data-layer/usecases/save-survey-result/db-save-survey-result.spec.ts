@@ -1,7 +1,8 @@
 import MockDate from 'mockdate'
 import { ISaveSurveyResultRepository } from '@/data-layer/protocols/db/save-survey-result-repository'
 import { DbSaveSurveyResult } from './db-save-survey-result'
-import { mockSaveSurveyResultModel, mockSaveSurveyResultParams, mockSaveSurveyResultRepository } from '@/domain/test'
+import { mockSaveSurveyResultModel, mockSaveSurveyResultParams } from '@/domain/test'
+import { mockSaveSurveyResultRepository } from '@/data-layer/test/mock-db-survey-result'
 
 const mockSut = (): SutTypes => {
   const saveSurveyResultRepositoryStub = mockSaveSurveyResultRepository()
