@@ -4,6 +4,7 @@ import { EmailInUseError, MissingParamError, ServerError } from '@/presentation/
 import { AccountModel } from '@/domain/models/account'
 import { ok, serverError, badRequest, forbidden } from '@/presentation/helpers/http/http-helper'
 import { IValidation } from '../../protocols/validation'
+import { throwNewError } from '@/domain/test'
 
 type SutTypes = {
   sut: SignUpController
@@ -71,9 +72,7 @@ const mockSut = (): SutTypes => {
 describe('SingUp Controller', () => {
   test('Should return 500 if AddAccount throws', async () => {
     const { sut, addAccountStub } = mockSut()
-    jest.spyOn(addAccountStub, 'add').mockImplementationOnce(async () => {
-      return new Promise((resolve, reject) => reject(new Error()))
-    })
+    jest.spyOn(addAccountStub, 'add').mockImplementationOnce(throwNewError)
 
     const httpResponse = await sut.handle(mockFakeRequest())
     expect(httpResponse).toEqual(serverError(new ServerError(null)))
