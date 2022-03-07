@@ -3,7 +3,7 @@ import { AccessDeniedError } from '../errors'
 import { AuthMiddleware } from './auth-middleware'
 import { AccountModel } from '../../domain/models/account'
 import { HttpRequest } from '../protocols'
-import { mockAccountModel } from '@/domain/test'
+import { mockAddAccountModel } from '@/domain/test'
 
 const mockRequest = (): HttpRequest => ({
   headers: {
@@ -14,7 +14,7 @@ const mockRequest = (): HttpRequest => ({
 const makeLoadAccountByTokenStub = (): ILoadAccountByToken => {
   class AddSurveyRepositoryStub implements ILoadAccountByToken {
     async load (accessToken: string, role: string): Promise<AccountModel> {
-      return new Promise(resolve => resolve(mockAccountModel()))
+      return new Promise(resolve => resolve(mockAddAccountModel()))
     }
   }
   return new AddSurveyRepositoryStub()

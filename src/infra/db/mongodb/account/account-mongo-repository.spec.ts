@@ -1,6 +1,7 @@
 import { AccountMongoRepository } from './account-mongo-repository'
 import { MongoHelper } from '../helpers/mongo-helper'
 import { Collection } from 'mongodb'
+import { mockAddAccountParams } from '@/domain/test'
 
 let accountCollection: Collection
 beforeAll(async () => { await MongoHelper.connect(process.env.MONGO_URL) })
@@ -19,15 +20,11 @@ const mockSut = (): AccountMongoRepository => {
 describe('Account Mongo Repository', () => {
   test('Should return an account on add success', async () => {
     const sut = mockSut()
-    const account = await sut.add({
-      name: 'any',
-      email: 'any_email@mail.com',
-      password: 'any_password'
-    })
+    const account = await sut.add(mockAddAccountParams())
 
     expect(account).toBeTruthy()
     expect(account.id).toBeTruthy()
-    expect(account.name).toBe('any')
+    expect(account.name).toBe('any_name')
     expect(account.email).toBe('any_email@mail.com')
     expect(account.password).toBe('any_password')
   })
