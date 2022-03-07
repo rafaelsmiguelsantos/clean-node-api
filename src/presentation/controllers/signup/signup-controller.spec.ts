@@ -4,7 +4,7 @@ import { EmailInUseError, MissingParamError, ServerError } from '@/presentation/
 import { AccountModel } from '@/domain/models/account'
 import { ok, serverError, badRequest, forbidden } from '@/presentation/helpers/http/http-helper'
 import { IValidation } from '../../protocols/validation'
-import { throwNewError } from '@/domain/test'
+import { mockAccountModel, throwNewError } from '@/domain/test'
 
 type SutTypes = {
   sut: SignUpController
@@ -25,7 +25,7 @@ const makeAuthentication = (): IAuthentication => {
 const mockAddAccount = (): IAddAccount => {
   class AddAccountStub implements IAddAccount {
     async add (account: AddAccountParams): Promise<AccountModel> {
-      return new Promise(resolve => resolve(mockFakeAccount()))
+      return new Promise(resolve => resolve(mockAccountModel()))
     }
   }
   return new AddAccountStub()
@@ -39,13 +39,6 @@ const makeValidation = (): IValidation => {
   }
   return new ValidationStub()
 }
-
-const mockFakeAccount = (): AccountModel => ({
-  id: 'valid_id',
-  name: 'valid_name',
-  email: 'valid_email@email.com',
-  password: 'valid_password'
-})
 
 const mockFakeRequest = (): HttpRequest => ({
   body: {

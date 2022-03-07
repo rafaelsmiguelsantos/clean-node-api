@@ -3,13 +3,7 @@ import { AccessDeniedError } from '../errors'
 import { AuthMiddleware } from './auth-middleware'
 import { AccountModel } from '../../domain/models/account'
 import { HttpRequest } from '../protocols'
-
-const mockFakeAccount = (): AccountModel => ({
-  id: 'valid_id',
-  name: 'valid_name',
-  email: 'valid_email@mail.com',
-  password: 'hashed_password'
-})
+import { mockAccountModel } from '@/domain/test'
 
 const mockFakeRequest = (): HttpRequest => ({
   headers: {
@@ -20,7 +14,7 @@ const mockFakeRequest = (): HttpRequest => ({
 const makeLoadAccountByTokenStub = (): ILoadAccountByToken => {
   class AddSurveyRepositoryStub implements ILoadAccountByToken {
     async load (accessToken: string, role: string): Promise<AccountModel> {
-      return new Promise(resolve => resolve(mockFakeAccount()))
+      return new Promise(resolve => resolve(mockAccountModel()))
     }
   }
   return new AddSurveyRepositoryStub()
@@ -64,7 +58,7 @@ describe('Auth Middleware', () => {
   test('Should return 200 if LoadAccountByToken returns an account', async () => {
     const { sut } = mockSut()
     const httpResponse = await sut.handle(mockFakeRequest())
-    expect(httpResponse).toEqual(ok({ accountId: 'valid_id' }))
+    expect(httpResponse).toEqual(ok({ accountId: 'any_id' }))
   })
 
   test('Should return 500 if LoadAccountByToken throws', async () => {
