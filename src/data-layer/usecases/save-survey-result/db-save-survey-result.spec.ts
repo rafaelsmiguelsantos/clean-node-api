@@ -1,29 +1,10 @@
 import MockDate from 'mockdate'
-import { SaveSurveyResultParams } from '@/domain/usecases/survey-result/save-survey-result'
-import { SurveyResultModel } from '@/domain/models/survey-result'
 import { ISaveSurveyResultRepository } from '@/data-layer/protocols/db/save-survey-result-repository'
 import { DbSaveSurveyResult } from './db-save-survey-result'
-
-const mockSurveyResultData = (): SaveSurveyResultParams => ({
-  accountId: 'any_account_id',
-  surveyId: 'any_survey_id',
-  answer: 'any_answer',
-  date: new Date()
-})
-
-const mockSurveyResult = (): SurveyResultModel => Object.assign({}, mockSurveyResultData(), { id: 'any_id' })
-
-const makeSaveSurveyResultRepositoryStub = (): ISaveSurveyResultRepository => {
-  class SaveSurveyResultRepositoryStub implements ISaveSurveyResultRepository {
-    async save (resultData: SaveSurveyResultParams): Promise<SurveyResultModel> {
-      return new Promise(resolve => resolve(mockSurveyResult()))
-    }
-  }
-  return new SaveSurveyResultRepositoryStub()
-}
+import { mockSaveSurveyResultRepository, mockSurveyResult, mockSurveyResultData } from '@/domain/test'
 
 const mockSut = (): SutTypes => {
-  const saveSurveyResultRepositoryStub = makeSaveSurveyResultRepositoryStub()
+  const saveSurveyResultRepositoryStub = mockSaveSurveyResultRepository()
   const sut = new DbSaveSurveyResult(saveSurveyResultRepositoryStub)
   return {
     sut,
