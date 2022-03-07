@@ -1,4 +1,4 @@
-import { mockLoadAccountByEmailRepository } from '@/data-layer/test'
+import { mockLoadAccountByEmailRepository, mockUpdateAccessTokenRepository } from '@/data-layer/test'
 import { mockEncrypter, mockHashComparer } from '@/data-layer/test/mock-criptography'
 import { DbAuthentication } from './db-authentication'
 
@@ -15,15 +15,6 @@ const mockAuthentication = (): AuthenticationParams => ({
   password: 'any_password'
 })
 
-const makeUpdateAccessTokenRepository = (): IUpdateAccessTokenRepository => {
-  class UpdateAccessTokenRepository implements IUpdateAccessTokenRepository {
-    async updateAccessToken (id: string, token: string): Promise<void> {
-      return new Promise(resolve => resolve())
-    }
-  }
-  return new UpdateAccessTokenRepository()
-}
-
 type SutTypes = {
   sut: DbAuthentication
   loadAccountByEmailRepositoryStub: LoadAccountByEmailRepository
@@ -36,7 +27,7 @@ const mockSut = (): SutTypes => {
   const loadAccountByEmailRepositoryStub = mockLoadAccountByEmailRepository()
   const hashComparerStub = mockHashComparer()
   const encrypterStub = mockEncrypter()
-  const updateAccessTokenRepositoryStub = makeUpdateAccessTokenRepository()
+  const updateAccessTokenRepositoryStub = mockUpdateAccessTokenRepository()
   const sut = new DbAuthentication(loadAccountByEmailRepositoryStub, hashComparerStub, encrypterStub, updateAccessTokenRepositoryStub)
   return {
     sut,
