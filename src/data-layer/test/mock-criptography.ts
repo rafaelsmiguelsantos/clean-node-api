@@ -1,7 +1,7 @@
 
+import { IHashComparer } from '@/data-layer/protocols/criptography/hash-comparer'
 import { IDecrypter } from '@/data-layer/protocols/criptography/decrypter'
 import { IEncrypter } from '@/data-layer/protocols/criptography/encrypter'
-import { IHashComparer } from '@/data-layer/protocols/criptography/hash-comparer'
 import { IHasher } from '@/data-layer/protocols/criptography/hasher'
 
 export const mockHasher = (): IHasher => {
