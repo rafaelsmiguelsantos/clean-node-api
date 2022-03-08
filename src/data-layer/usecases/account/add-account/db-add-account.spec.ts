@@ -33,7 +33,7 @@ const mockSut = (): SutTypes => {
   }
 }
 
-describe('DbAddAccount Usecase', () => {
+describe('Class DbAddAccount Usecase', () => {
   test('Should call Hasher with correct password', async () => {
     const { sut, hasherStub } = mockSut()
     const hashSpy = jest.spyOn(hasherStub, 'hash')
