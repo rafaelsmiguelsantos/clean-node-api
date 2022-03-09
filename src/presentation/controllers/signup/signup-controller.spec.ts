@@ -1,28 +1,19 @@
 import { SignUpController } from './signup-controller'
-import { AddAccountParams, IAddAccount, IAuthentication } from './signup-protocols'
+import { IAddAccount, IAuthentication } from './signup-protocols'
 import { EmailInUseError, MissingParamError, ServerError } from '@/presentation/errors'
-import { AccountModel } from '@/domain/models/account'
 import { ok, serverError, badRequest, forbidden } from '@/presentation/helpers/http/http-helper'
 import { IValidation } from '../../protocols/validation'
-import { mockAddAccountModel, throwNewError } from '@/domain/test'
+import { throwNewError } from '@/domain/test'
 import { HttpRequest } from '@/presentation/protocols/httpRequest'
 import { mockAuthenticationToken } from '@/presentation/test/mock-authentication'
 import { mockValidation } from '@/validation/validators/test'
+import { mockAddAccount } from '@/presentation/test/mock-add-account'
 
 type SutTypes = {
   sut: SignUpController
   addAccountStub: IAddAccount
   validationStub: IValidation
   authenticationStub: IAuthentication
-}
-
-const mockAddAccount = (): IAddAccount => {
-  class AddAccountStub implements IAddAccount {
-    async add (account: AddAccountParams): Promise<AccountModel> {
-      return new Promise(resolve => resolve(mockAddAccountModel()))
-    }
-  }
-  return new AddAccountStub()
 }
 
 const mockRequest = (): HttpRequest => ({
