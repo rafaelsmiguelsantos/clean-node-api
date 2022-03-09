@@ -1,9 +1,12 @@
-import { ILoadAccountByToken, forbidden, ok, serverError } from './index'
-import { AccessDeniedError } from '../errors'
-import { AuthMiddleware } from './auth-middleware'
-import { AccountModel } from '../../domain/models/account'
-import { HttpRequest } from '../protocols'
-import { mockAddAccountModel } from '@/domain/test'
+import { ILoadAccountByToken, forbidden, ok, serverError, HttpRequest } from './index'
+import { AccessDeniedError } from '@/presentation/errors'
+import { AuthMiddleware } from '@/presentation/middlewares/auth-middleware'
+import { mockLoadAccountByToken } from '../test/mock-authentication'
+
+type SutTypes = {
+  sut: AuthMiddleware
+  loadAccountByTokenStub: ILoadAccountByToken
+}
 
 const mockRequest = (): HttpRequest => ({
   headers: {
@@ -11,22 +14,8 @@ const mockRequest = (): HttpRequest => ({
   }
 })
 
-const makeLoadAccountByTokenStub = (): ILoadAccountByToken => {
-  class AddSurveyRepositoryStub implements ILoadAccountByToken {
-    async load (accessToken: string, role: string): Promise<AccountModel> {
-      return new Promise(resolve => resolve(mockAddAccountModel()))
-    }
-  }
-  return new AddSurveyRepositoryStub()
-}
-
-type SutTypes = {
-  sut: AuthMiddleware
-  loadAccountByTokenStub: ILoadAccountByToken
-}
-
 const mockSut = (role?: string): SutTypes => {
-  const loadAccountByTokenStub = makeLoadAccountByTokenStub()
+  const loadAccountByTokenStub = mockLoadAccountByToken()
   const sut = new AuthMiddleware(loadAccountByTokenStub, role)
   return {
     sut,
