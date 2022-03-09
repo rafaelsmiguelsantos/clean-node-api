@@ -3,7 +3,7 @@ import { ILoggerErrorRepository } from '@/data-layer/protocols/db/logger-error-r
 export const mockLogErrorRepository = (): ILoggerErrorRepository => {
   class LoggerErrorRepositoryStub implements ILoggerErrorRepository {
     async loggerError (stack: string): Promise<void> {
-      return new Promise(resolve => resolve())
+      return Promise.resolve()
     }
   }
   return new LoggerErrorRepositoryStub()

@@ -9,7 +9,7 @@ import { IUpdateAccessTokenRepository } from '@/data-layer/protocols/db/update-a
 export const mockAddAccountRepository = (): AddAccountRepository => {
   class AddAccountRepositoryStub implements AddAccountRepository {
     async add (accountData: AddAccountParams): Promise<AccountModel> {
-      return await new Promise(resolve => resolve(mockAddAccountModel()))
+      return await Promise.resolve(mockAddAccountModel())
     }
   }
   return new AddAccountRepositoryStub()
@@ -18,7 +18,7 @@ export const mockAddAccountRepository = (): AddAccountRepository => {
 export const mockLoadAccountByEmailRepository = (): LoadAccountByEmailRepository => {
   class LoadAccountByEmailRepositoryStub implements LoadAccountByEmailRepository {
     async loadByEmail (email: string): Promise<AccountModel> {
-      return new Promise(resolve => resolve(mockAddAccountModel()))
+      return Promise.resolve(mockAddAccountModel())
     }
   }
   return new LoadAccountByEmailRepositoryStub()
@@ -27,7 +27,7 @@ export const mockLoadAccountByEmailRepository = (): LoadAccountByEmailRepository
 export const mockLoadAccountByTokenRepository = (): LoadAccountByTokenRepository => {
   class LoadAccountByTokenRepositoryStub implements LoadAccountByTokenRepository {
     async loadByToken (token: string, role?: string): Promise<AccountModel> {
-      return new Promise(resolve => resolve(mockAddAccountModel()))
+      return Promise.resolve(mockAddAccountModel())
     }
   }
   return new LoadAccountByTokenRepositoryStub()
@@ -36,7 +36,7 @@ export const mockLoadAccountByTokenRepository = (): LoadAccountByTokenRepository
 export const mockUpdateAccessTokenRepository = (): IUpdateAccessTokenRepository => {
   class UpdateAccessTokenRepository implements IUpdateAccessTokenRepository {
     async updateAccessToken (id: string, token: string): Promise<void> {
-      return new Promise(resolve => resolve())
+      return Promise.resolve()
     }
   }
   return new UpdateAccessTokenRepository()
