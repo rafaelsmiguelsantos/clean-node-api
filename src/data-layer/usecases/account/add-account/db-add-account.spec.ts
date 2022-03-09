@@ -7,7 +7,7 @@ import { mockAddAccountRepository } from '@/data-layer/test'
 const mockLoadAccountByEmailRepository = (): LoadAccountByEmailRepository => {
   class LoadAccountByEmailRepositoryStub implements LoadAccountByEmailRepository {
     async loadByEmail (email: string): Promise<AccountModel> {
-      return new Promise(resolve => resolve(null))
+      return Promise.resolve(null)
     }
   }
   return new LoadAccountByEmailRepositoryStub()

@@ -8,7 +8,7 @@ import { mockLogErrorRepository } from '@/data-layer/test'
 const makeController = (): Controller => {
   class ControllerStub implements Controller {
     async handle (httpRequest: HttpRequest): Promise<HttpResponse> {
-      return new Promise(resolve => resolve(ok(mockAccount())))
+      return Promise.resolve(ok(mockAccount()))
     }
   }
   return new ControllerStub()

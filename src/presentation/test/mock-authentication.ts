@@ -6,7 +6,7 @@ import { ILoadAccountByToken } from '@/domain/usecases/account/load-account-by-t
 export const mockAuthenticationToken = (): IAuthentication => {
   class AuthenticationStub implements IAuthentication {
     async auth (authentication: AuthenticationParams): Promise<string> {
-      return new Promise(resolve => resolve('any_token'))
+      return Promise.resolve('any_token')
     }
   }
   return new AuthenticationStub()
@@ -15,7 +15,7 @@ export const mockAuthenticationToken = (): IAuthentication => {
 export const mockLoadAccountByToken = (): ILoadAccountByToken => {
   class AddSurveyRepositoryStub implements ILoadAccountByToken {
     async load (accessToken: string, role: string): Promise<AccountModel> {
-      return new Promise(resolve => resolve(mockAddAccountModel()))
+      return Promise.resolve(mockAddAccountModel())
     }
   }
   return new AddSurveyRepositoryStub()
