@@ -8,7 +8,7 @@ import env from '@/main/env'
 export const makeDbAuthentication = (): IAuthentication => {
   const SALT = 12
   const bcryptAdapter = new BcryptAdapter(SALT)
-  const jwtAdapter = new JwtAdapter(env.jwt)
+  const jwtAdapter = new JwtAdapter(env.jwtSecret)
   const accountMongoRepository = new AccountMongoRepository()
   return new DbAuthentication(accountMongoRepository, bcryptAdapter, jwtAdapter, accountMongoRepository)
 }

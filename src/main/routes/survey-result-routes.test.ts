@@ -15,7 +15,7 @@ const mockAccessToken = async (): Promise<string> => {
     password: '123'
   })
   const id = res.insertedId.toHexString()
-  const accessToken = sign({ id }, env.jwt)
+  const accessToken = sign({ id }, env.jwtSecret)
   await accountCollection.updateOne({
     _id: res.insertedId
   }, {
