@@ -4,6 +4,7 @@ import { AddSurveyController } from './add-survey-controller'
 import { HttpRequest } from '../../protocols'
 import { IValidation } from '../../protocols/validation'
 import MockDate from 'mockdate'
+import { mockValidation } from '@/validation/validators/test'
 
 const mockRequest = (): HttpRequest => ({
   body: {
@@ -15,15 +16,6 @@ const mockRequest = (): HttpRequest => ({
     date: new Date()
   }
 })
-
-const makeValidation = (): IValidation => {
-  class ValidationStub implements IValidation {
-    validate (_input: any): Error {
-      return null
-    }
-  }
-  return new ValidationStub()
-}
 
 const mockAddSurvey = (): IAddSurvey => {
   class AddSurveyStub implements IAddSurvey {
@@ -41,7 +33,7 @@ type SutTypes = {
 }
 
 const mockSut = (): SutTypes => {
-  const validationStub = makeValidation()
+  const validationStub = mockValidation()
   const addSurveyStub = mockAddSurvey()
   const sut = new AddSurveyController(validationStub, addSurveyStub)
   return {

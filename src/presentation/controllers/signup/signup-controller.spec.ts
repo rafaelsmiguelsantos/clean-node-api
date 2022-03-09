@@ -1,25 +1,19 @@
 import { SignUpController } from './signup-controller'
-import { HttpRequest, AddAccountParams, IAddAccount, IAuthentication, AuthenticationParams } from './signup-protocols'
+import { AddAccountParams, IAddAccount, IAuthentication } from './signup-protocols'
 import { EmailInUseError, MissingParamError, ServerError } from '@/presentation/errors'
 import { AccountModel } from '@/domain/models/account'
 import { ok, serverError, badRequest, forbidden } from '@/presentation/helpers/http/http-helper'
 import { IValidation } from '../../protocols/validation'
 import { mockAddAccountModel, throwNewError } from '@/domain/test'
+import { HttpRequest } from '@/presentation/protocols/httpRequest'
+import { mockAuthenticationToken } from '@/presentation/test/mock-authentication'
+import { mockValidation } from '@/validation/validators/test'
 
 type SutTypes = {
   sut: SignUpController
   addAccountStub: IAddAccount
   validationStub: IValidation
   authenticationStub: IAuthentication
-}
-
-const makeAuthentication = (): IAuthentication => {
-  class AuthenticationStub implements IAuthentication {
-    async auth (authentication: AuthenticationParams): Promise<string> {
-      return new Promise(resolve => resolve('any_token'))
-    }
-  }
-  return new AuthenticationStub()
 }
 
 const mockAddAccount = (): IAddAccount => {
@@ -29,15 +23,6 @@ const mockAddAccount = (): IAddAccount => {
     }
   }
   return new AddAccountStub()
-}
-
-const makeValidation = (): IValidation => {
-  class ValidationStub implements IValidation {
-    validate (input: any): Error {
-      return null
-    }
-  }
-  return new ValidationStub()
 }
 
 const mockRequest = (): HttpRequest => ({
@@ -50,9 +35,9 @@ const mockRequest = (): HttpRequest => ({
 })
 
 const mockSut = (): SutTypes => {
-  const authenticationStub = makeAuthentication()
+  const authenticationStub = mockAuthenticationToken()
   const addAccountStub = mockAddAccount()
-  const validationStub = makeValidation()
+  const validationStub = mockValidation()
   const sut = new SignUpController(addAccountStub, validationStub, authenticationStub)
   return {
     sut,
