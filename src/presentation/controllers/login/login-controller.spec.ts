@@ -1,18 +1,10 @@
-import { HttpRequest, IAuthentication, AuthenticationParams } from './login-protocols'
+import { HttpRequest, IAuthentication } from './login-protocols'
 import { badRequest, ok, serverError, unauthorized } from '@/presentation/helpers/http/http-helper'
 import { MissingParamError } from '@/presentation/errors'
 import { LoginController } from '@/presentation/controllers/login/login-controller'
 import { IValidation } from '../../protocols/validation'
 import { mockValidation } from '@/validation/validators/test'
-
-const makeAuthentication = (): IAuthentication => {
-  class AuthenticationStub implements IAuthentication {
-    async auth (_authentication: AuthenticationParams): Promise<string> {
-      return new Promise(resolve => resolve('any_token'))
-    }
-  }
-  return new AuthenticationStub()
-}
+import { mockAuthenticationToken } from '@/presentation/test/mock-authentication'
 
 const mockRequest = (): HttpRequest => ({
   body: {
@@ -28,7 +20,7 @@ type SutTypes = {
 }
 
 const mockSut = (): SutTypes => {
-  const authenticationStub = makeAuthentication()
+  const authenticationStub = mockAuthenticationToken()
   const validationStub = mockValidation()
   const sut = new LoginController(validationStub, authenticationStub)
   return {
