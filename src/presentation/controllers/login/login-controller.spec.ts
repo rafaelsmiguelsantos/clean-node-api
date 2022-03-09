@@ -6,18 +6,18 @@ import { IValidation } from '../../protocols/validation'
 import { mockValidation } from '@/validation/validators/test'
 import { mockAuthenticationToken } from '@/presentation/test/mock-authentication'
 
+type SutTypes = {
+  sut: LoginController
+  authenticationStub: IAuthentication
+  validationStub: IValidation
+}
+
 const mockRequest = (): HttpRequest => ({
   body: {
     email: 'any_email@mail.com',
     password: 'any_password'
   }
 })
-
-type SutTypes = {
-  sut: LoginController
-  authenticationStub: IAuthentication
-  validationStub: IValidation
-}
 
 const mockSut = (): SutTypes => {
   const authenticationStub = mockAuthenticationToken()

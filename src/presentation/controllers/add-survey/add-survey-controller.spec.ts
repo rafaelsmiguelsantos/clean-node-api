@@ -6,6 +6,12 @@ import { IValidation } from '../../protocols/validation'
 import MockDate from 'mockdate'
 import { mockValidation } from '@/validation/validators/test'
 
+type SutTypes = {
+  sut: AddSurveyController
+  validationStub: IValidation
+  addSurveyStub: IAddSurvey
+}
+
 const mockRequest = (): HttpRequest => ({
   body: {
     question: 'any_question',
@@ -24,12 +30,6 @@ const mockAddSurvey = (): IAddSurvey => {
     }
   }
   return new AddSurveyStub()
-}
-
-type SutTypes = {
-  sut: AddSurveyController
-  validationStub: IValidation
-  addSurveyStub: IAddSurvey
 }
 
 const mockSut = (): SutTypes => {

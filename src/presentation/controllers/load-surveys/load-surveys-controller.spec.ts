@@ -3,6 +3,11 @@ import { ILoadSurveys, SurveyModel } from './load-surveys-protocols'
 import { LoadSurveyController } from './load-surveys-controller'
 import MockDate from 'mockdate'
 
+type SutTypes = {
+  sut: LoadSurveyController
+  loadSurveysStub: ILoadSurveys
+}
+
 const mockSurveys = (): SurveyModel[] => {
   return [
     {
@@ -24,11 +29,6 @@ const mockSurveys = (): SurveyModel[] => {
       date: new Date()
     }
   ]
-}
-
-type SutTypes = {
-  sut: LoadSurveyController
-  loadSurveysStub: ILoadSurveys
 }
 
 const makeLoadSurveys = (): ILoadSurveys => {

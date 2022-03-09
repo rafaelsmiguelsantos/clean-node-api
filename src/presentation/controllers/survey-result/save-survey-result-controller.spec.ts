@@ -7,6 +7,12 @@ import { ISaveSurveyResult, SaveSurveyResultParams } from '@/domain/usecases/sur
 import { SurveyResultModel } from '@/domain/models/survey-result'
 import MockDate from 'mockdate'
 
+type SutTypes = {
+  sut: SaveSurveyResultController
+  loadSurveyByIdStub: ILoadSurveyById
+  saveSurveyResultStub: ISaveSurveyResult
+}
+
 const mockRequest = (): HttpRequest => ({
   params: {
     surveyId: 'any_survey_id'
@@ -62,12 +68,6 @@ const mockSut = (): SutTypes => {
     loadSurveyByIdStub,
     saveSurveyResultStub
   }
-}
-
-type SutTypes = {
-  sut: SaveSurveyResultController
-  loadSurveyByIdStub: ILoadSurveyById
-  saveSurveyResultStub: ISaveSurveyResult
 }
 
 describe('Save Survey Result Controller', () => {
