@@ -47,7 +47,7 @@ describe('DbAuthentication UseCases', () => {
 
   test('Should throw if LoadAccountByEmailRepository throws', async () => {
     const { sut, loadAccountByEmailRepositoryStub } = mockSut()
-    jest.spyOn(loadAccountByEmailRepositoryStub, 'loadByEmail').mockReturnValueOnce(new Promise((resolve, reject) => reject(new Error())))
+    jest.spyOn(loadAccountByEmailRepositoryStub, 'loadByEmail').mockReturnValueOnce(Promise.reject(throwNewError))
     const promise = sut.auth(mockAuthentication())
     await expect(promise).rejects.toThrow()
   })
@@ -89,7 +89,7 @@ describe('DbAuthentication UseCases', () => {
 
   test('Should throw if Encrypter throws', async () => {
     const { sut, encrypterStub } = mockSut()
-    jest.spyOn(encrypterStub, 'encrypt').mockReturnValueOnce(new Promise((resolve, reject) => reject(new Error())))
+    jest.spyOn(encrypterStub, 'encrypt').mockReturnValueOnce(Promise.reject(throwNewError))
     const promise = sut.auth(mockAuthentication())
     await expect(promise).rejects.toThrow()
   })
@@ -109,7 +109,7 @@ describe('DbAuthentication UseCases', () => {
 
   test('Should throw if UpdateAccessTokenGenerator throws', async () => {
     const { sut, updateAccessTokenRepositoryStub } = mockSut()
-    jest.spyOn(updateAccessTokenRepositoryStub, 'updateAccessToken').mockReturnValueOnce(new Promise((resolve, reject) => reject(new Error())))
+    jest.spyOn(updateAccessTokenRepositoryStub, 'updateAccessToken').mockReturnValueOnce(Promise.reject(throwNewError))
     const promise = sut.auth(mockAuthentication())
     await expect(promise).rejects.toThrow()
   })

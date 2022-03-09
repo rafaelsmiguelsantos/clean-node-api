@@ -5,6 +5,7 @@ import { LoginController } from '@/presentation/controllers/login/login-controll
 import { IValidation } from '../../protocols/validation'
 import { mockValidation } from '@/validation/validators/test'
 import { mockAuthenticationToken } from '@/presentation/test/mock-authentication'
+import { throwNewError } from '@/domain/test'
 
 type SutTypes = {
   sut: LoginController
@@ -40,7 +41,7 @@ describe('Login Controller', () => {
 
   test('Should return 401 if invalid credentials are provided', async () => {
     const { sut, authenticationStub } = mockSut()
-    jest.spyOn(authenticationStub, 'auth').mockReturnValueOnce(new Promise(resolve => resolve(null)))
+    jest.spyOn(authenticationStub, 'auth').mockReturnValueOnce(Promise.resolve(null))
 
     const httpResponse = await sut.handle(mockRequest())
     expect(httpResponse).toEqual(unauthorized())
@@ -48,7 +49,7 @@ describe('Login Controller', () => {
 
   test('Should return 500 if an Authentication throws', async () => {
     const { sut, authenticationStub } = mockSut()
-    jest.spyOn(authenticationStub, 'auth').mockReturnValueOnce(new Promise((_resolve, reject) => reject(new Error())))
+    jest.spyOn(authenticationStub, 'auth').mockReturnValueOnce(Promise.reject(throwNewError))
     const httpResponse = await sut.handle(mockRequest())
     expect(httpResponse).toEqual(serverError(new Error()))
   })
