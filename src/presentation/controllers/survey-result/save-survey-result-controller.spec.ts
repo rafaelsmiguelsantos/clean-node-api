@@ -35,7 +35,7 @@ const mockSaveSurveyResultModel = (): SurveyResultModel => ({
   answer: 'valid_answer'
 })
 
-const makeLoadSurveyById = (): ILoadSurveyById => {
+const mockLoadSurveyById = (): ILoadSurveyById => {
   class LoadSurveyByIdStub implements ILoadSurveyById {
     async loadById (id: string): Promise<SurveyModel> {
       return new Promise(resolve => resolve(mockSurveys()))
@@ -44,7 +44,7 @@ const makeLoadSurveyById = (): ILoadSurveyById => {
   return new LoadSurveyByIdStub()
 }
 
-const makeSaveSurveyResult = (): ISaveSurveyResult => {
+const mockSaveSurveyResult = (): ISaveSurveyResult => {
   class SaveSurveyResultStub implements ISaveSurveyResult {
     async save (data: SaveSurveyResultParams): Promise<SurveyResultModel> {
       return new Promise(resolve => resolve(mockSaveSurveyResultModel()))
@@ -54,8 +54,8 @@ const makeSaveSurveyResult = (): ISaveSurveyResult => {
 }
 
 const mockSut = (): SutTypes => {
-  const loadSurveyByIdStub = makeLoadSurveyById()
-  const saveSurveyResultStub = makeSaveSurveyResult()
+  const loadSurveyByIdStub = mockLoadSurveyById()
+  const saveSurveyResultStub = mockSaveSurveyResult()
   const sut = new SaveSurveyResultController(loadSurveyByIdStub, saveSurveyResultStub)
   return {
     sut,
