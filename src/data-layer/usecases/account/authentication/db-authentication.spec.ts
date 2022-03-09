@@ -4,7 +4,7 @@ import {
 } from '@/data-layer/test'
 
 import { mockEncrypter, mockHashComparer } from '@/data-layer/test/mock-criptography'
-import { mockAuthentication } from '@/domain/test'
+import { mockAuthentication, throwNewError } from '@/domain/test'
 import { DbAuthentication } from './db-authentication'
 
 import {
@@ -68,14 +68,14 @@ describe('DbAuthentication UseCases', () => {
 
   test('Should throw if HashComparer throws', async () => {
     const { sut, hashComparerStub } = mockSut()
-    jest.spyOn(hashComparerStub, 'compare').mockReturnValueOnce(new Promise((resolve, reject) => reject(new Error())))
+    jest.spyOn(hashComparerStub, 'compare').mockReturnValueOnce(Promise.reject(throwNewError))
     const promise = sut.auth(mockAuthentication())
     await expect(promise).rejects.toThrow()
   })
 
   test('Should return null if HashComparer returns false', async () => {
     const { sut, hashComparerStub } = mockSut()
-    jest.spyOn(hashComparerStub, 'compare').mockReturnValueOnce(new Promise(resolve => resolve(false)))
+    jest.spyOn(hashComparerStub, 'compare').mockReturnValueOnce(Promise.resolve(false))
     const accessToken = await sut.auth(mockAuthentication())
     expect(accessToken).toBeNull()
   })
