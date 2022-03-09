@@ -3,6 +3,7 @@ import { badRequest, ok, serverError, unauthorized } from '@/presentation/helper
 import { MissingParamError } from '@/presentation/errors'
 import { LoginController } from '@/presentation/controllers/login/login-controller'
 import { IValidation } from '../../protocols/validation'
+import { mockValidation } from '@/validation/validators/test'
 
 const makeAuthentication = (): IAuthentication => {
   class AuthenticationStub implements IAuthentication {
@@ -20,15 +21,6 @@ const mockRequest = (): HttpRequest => ({
   }
 })
 
-const makeValidation = (): IValidation => {
-  class ValidationStub implements IValidation {
-    validate (_input: any): Error {
-      return null
-    }
-  }
-  return new ValidationStub()
-}
-
 type SutTypes = {
   sut: LoginController
   authenticationStub: IAuthentication
@@ -37,7 +29,7 @@ type SutTypes = {
 
 const mockSut = (): SutTypes => {
   const authenticationStub = makeAuthentication()
-  const validationStub = makeValidation()
+  const validationStub = mockValidation()
   const sut = new LoginController(validationStub, authenticationStub)
   return {
     sut,
