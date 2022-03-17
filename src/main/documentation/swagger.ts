@@ -4,5 +4,11 @@ export default {
     title: 'Clean Node API',
     description: 'Enquetes',
     version: '2.2.0'
-  }
+  },
+  servers: [{
+    url: '/api'
+  }],
+  tags: [{
+    name: 'Login'
+  }]
 }
