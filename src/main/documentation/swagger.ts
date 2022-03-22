@@ -1,6 +1,11 @@
 import { loginPath } from './paths-swagger/login-path'
 import { accountSchema } from './schemas/account'
+import { errorSchema } from './schemas/error-schema'
 import { loginParamsSchema } from './schemas/login-params'
+import { badRequest } from './components/bad-request'
+import { serverError } from './components/server-error'
+import { unauthorized } from './components/unauthorized'
+import { notFound } from './components/not-found'
 
 export default {
   openapi: '3.0.0',
@@ -20,6 +25,13 @@ export default {
   },
   schemas: {
     account: accountSchema,
-    loginParams: loginParamsSchema
+    loginParams: loginParamsSchema,
+    error: errorSchema
+  },
+  components: {
+    badRequest,
+    serverError,
+    unauthorized,
+    notFound
   }
 }
