@@ -1,3 +1,7 @@
+import { loginPath } from './paths-swagger/login-path'
+import { accountSchema } from './schemas/account'
+import { loginParamsSchema } from './schemas/login-params'
+
 export default {
   openapi: '3.0.0',
   info: {
@@ -10,5 +14,12 @@ export default {
   }],
   tags: [{
     name: 'Login'
-  }]
+  }],
+  paths: {
+    '/login': loginPath
+  },
+  schemas: {
+    account: accountSchema,
+    loginParams: loginParamsSchema
+  }
 }
