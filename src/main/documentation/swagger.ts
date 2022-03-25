@@ -11,6 +11,7 @@ import { surveyPath } from './paths-swagger/surveys-path'
 import { surveysSchema } from './schemas/surveys-schema'
 import { surveySchema } from './schemas/survey-schema'
 import { surveyAnswerSchema } from './schemas/survey-answer-schema'
+import { apiKeyAuthSchema } from './schemas/api-key-auth-schema'
 
 export default {
   openapi: '3.0.0',
@@ -40,6 +41,9 @@ export default {
     surveyAnswer: surveyAnswerSchema
   },
   components: {
+    securitySchemes: {
+      apiKeyAuth: apiKeyAuthSchema
+    },
     badRequest,
     serverError,
     unauthorized,
