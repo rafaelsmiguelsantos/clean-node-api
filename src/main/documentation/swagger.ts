@@ -15,6 +15,9 @@ import { apiKeyAuthSchema } from './schemas/api-key-auth-schema'
 import { signUpParamsSchema } from './schemas/signup-params-schema'
 import { signUpPath } from './paths-swagger/signup-path'
 import { addSurveyParamsSchema } from './schemas/add-survey-params-schema'
+import { surveyResultPath } from './paths-swagger/survey-result-path'
+import { saveSurveyParamsSchema } from './schemas/save-survey-params-schema'
+import { surveyResultSchema } from './schemas/survey-result-schema'
 
 export default {
   openapi: '3.0.0',
@@ -30,12 +33,11 @@ export default {
     name: 'Login'
   }, {
     name: 'Enquete'
-  },{
-    name: 'SignUp'
   }],
   paths: {
     '/login': loginPath,
     '/surveys': surveyPath,
+    '/surveys/{surveyId}/result': surveyResultPath,
     '/signup': signUpPath
   },
   schemas: {
@@ -46,7 +48,9 @@ export default {
     surveys: surveysSchema,
     survey: surveySchema,
     surveyAnswer: surveyAnswerSchema,
-    addSurveyParams: addSurveyParamsSchema
+    addSurveyParams: addSurveyParamsSchema,
+    saveSurveyParams: saveSurveyParamsSchema,
+    surveyResult: surveyResultSchema
   },
   components: {
     securitySchemes: {
