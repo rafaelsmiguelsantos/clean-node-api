@@ -12,6 +12,8 @@ import { surveysSchema } from './schemas/surveys-schema'
 import { surveySchema } from './schemas/survey-schema'
 import { surveyAnswerSchema } from './schemas/survey-answer-schema'
 import { apiKeyAuthSchema } from './schemas/api-key-auth-schema'
+import { signUpParamsSchema } from './schemas/signup-params-schema'
+import { signUpPath } from './paths-swagger/signup-path'
 
 export default {
   openapi: '3.0.0',
@@ -27,14 +29,18 @@ export default {
     name: 'Login'
   }, {
     name: 'Enquete'
+  },{
+    name: 'SignUp'
   }],
   paths: {
     '/login': loginPath,
-    '/surveys': surveyPath
+    '/surveys': surveyPath,
+    '/signup': signUpPath
   },
   schemas: {
     account: accountSchema,
     loginParams: loginParamsSchema,
+    signUpParams: signUpParamsSchema,
     error: errorSchema,
     surveys: surveysSchema,
     survey: surveySchema,
