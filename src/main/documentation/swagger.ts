@@ -6,6 +6,11 @@ import { badRequest } from './components/bad-request'
 import { serverError } from './components/server-error'
 import { unauthorized } from './components/unauthorized'
 import { notFound } from './components/not-found'
+import { forbidden } from './components/forbidden'
+import { surveyPath } from './paths-swagger/surveys-path'
+import { surveysSchema } from './schemas/surveys-schema'
+import { surveySchema } from './schemas/survey-schema'
+import { surveyAnswerSchema } from './schemas/survey-answer-schema'
 
 export default {
   openapi: '3.0.0',
@@ -19,19 +24,26 @@ export default {
   }],
   tags: [{
     name: 'Login'
+  }, {
+    name: 'Enquete'
   }],
   paths: {
-    '/login': loginPath
+    '/login': loginPath,
+    '/surveys': surveyPath
   },
   schemas: {
     account: accountSchema,
     loginParams: loginParamsSchema,
-    error: errorSchema
+    error: errorSchema,
+    surveys: surveysSchema,
+    survey: surveySchema,
+    surveyAnswer: surveyAnswerSchema
   },
   components: {
     badRequest,
     serverError,
     unauthorized,
-    notFound
+    notFound,
+    forbidden
   }
 }
