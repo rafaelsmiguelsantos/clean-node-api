@@ -7,13 +7,14 @@ import { serverError } from './components/server-error'
 import { unauthorized } from './components/unauthorized'
 import { notFound } from './components/not-found'
 import { forbidden } from './components/forbidden'
-import { surveyPath } from './paths-swagger/surveys-path'
+import { surveyPath } from './paths-swagger/survey-path'
 import { surveysSchema } from './schemas/surveys-schema'
 import { surveySchema } from './schemas/survey-schema'
 import { surveyAnswerSchema } from './schemas/survey-answer-schema'
 import { apiKeyAuthSchema } from './schemas/api-key-auth-schema'
 import { signUpParamsSchema } from './schemas/signup-params-schema'
 import { signUpPath } from './paths-swagger/signup-path'
+import { addSurveyParamsSchema } from './schemas/add-survey-params-schema'
 
 export default {
   openapi: '3.0.0',
@@ -44,7 +45,8 @@ export default {
     error: errorSchema,
     surveys: surveysSchema,
     survey: surveySchema,
-    surveyAnswer: surveyAnswerSchema
+    surveyAnswer: surveyAnswerSchema,
+    addSurveyParams: addSurveyParamsSchema
   },
   components: {
     securitySchemes: {
