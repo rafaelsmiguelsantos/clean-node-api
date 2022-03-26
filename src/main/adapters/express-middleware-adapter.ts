@@ -1,5 +1,5 @@
-import { IMiddleware, HttpRequest } from '@/presentation/protocols'
 import { NextFunction, Request, Response } from 'express'
+import { IMiddleware, HttpRequest } from '@/presentation/protocols'
 
 export const adaptMiddleware = (middleware: IMiddleware) => {
   return async (req: Request, res: Response, next: NextFunction) => {

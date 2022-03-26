@@ -1,9 +1,10 @@
 import { AccountMongoRepository } from './account-mongo-repository'
+import { mockAddAccountParams } from '@/domain/test'
 import { MongoHelper } from '../helpers/mongo-helper'
 import { Collection } from 'mongodb'
-import { mockAddAccountParams } from '@/domain/test'
 
 let accountCollection: Collection
+
 beforeAll(async () => { await MongoHelper.connect(process.env.MONGO_URL) })
 
 afterAll(async () => { await MongoHelper.disconnect() })

@@ -1,6 +1,6 @@
 import { ISaveSurveyResultRepository } from '@/data-layer/protocols/db/save-survey-result-repository'
-import { SurveyResultModel } from '@/domain/models/survey-result'
 import { SaveSurveyResultParams } from '@/domain/usecases/survey-result/save-survey-result'
+import { SurveyResultModel } from '@/domain/models/survey-result'
 import { MongoHelper } from '@/infra/db/mongodb/helpers/mongo-helper'
 import { ObjectId } from 'mongodb'
 

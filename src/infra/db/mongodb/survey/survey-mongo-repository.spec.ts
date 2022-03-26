@@ -7,6 +7,7 @@ let surveyCollection: Collection
 const mockSut = (): SurveyMongoRepository => {
   return new SurveyMongoRepository()
 }
+
 describe('AddSurvey Mongo Repository', () => {
   beforeAll(async () => { await MongoHelper.connect(process.env.MONGO_URL) })
 
