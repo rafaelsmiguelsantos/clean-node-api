@@ -11,6 +11,7 @@ const makeEMailValitor = (): EmailValidator => {
   }
   return new EmailValidatorStub()
 }
+
 jest.mock('@/validation/validators/validation-composite.ts')
 
 describe('LoginValidation Factory', () => {
