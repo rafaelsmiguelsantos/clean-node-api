@@ -2,7 +2,7 @@ import { ILoadSurveyResult } from '@/domain/usecases/survey-result/load-survey-r
 import { ILoadSurveyById } from '@/domain/usecases/survey/load-survey-by-id'
 import { Controller, HttpRequest, HttpResponse } from '@/presentation/controllers/load-surveys/load-surveys-protocols'
 import { InvalidParamError } from '@/presentation/errors'
-import { forbidden, serverError } from '@/presentation/middlewares'
+import { forbidden, serverError, ok } from '@/presentation/middlewares'
 
 export class LoadSurveyResultController implements Controller {
   constructor (private readonly loadSurveyById: ILoadSurveyById, private readonly loadSurveyResult: ILoadSurveyResult) { }
@@ -13,8 +13,8 @@ export class LoadSurveyResultController implements Controller {
       if (!survey) {
         return forbidden(new InvalidParamError('surveyId'))
       }
-      await this.loadSurveyResult.load(surveyId)
-      return null
+      const surveyResult = await this.loadSurveyResult.load(surveyId)
+      return ok(surveyResult)
     } catch (error) {
       return serverError(error)
     }
