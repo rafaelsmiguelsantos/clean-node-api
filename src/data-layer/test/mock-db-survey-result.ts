@@ -6,8 +6,8 @@ import { ILoadSurveyResultRepository } from '@/data-layer/protocols/db/load-surv
 
 export const mockSaveSurveyResultRepository = (): ISaveSurveyResultRepository => {
   class SaveSurveyResultRepositoryStub implements ISaveSurveyResultRepository {
-    async save (resultData: SaveSurveyResultParams): Promise<SurveyResultModel> {
-      return Promise.resolve(mockSurveyResultModel())
+    async save (resultData: SaveSurveyResultParams): Promise<void> {
+      return Promise.resolve()
     }
   }
   return new SaveSurveyResultRepositoryStub()

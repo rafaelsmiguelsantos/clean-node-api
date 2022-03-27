@@ -1,14 +1,17 @@
-import MockDate from 'mockdate'
 import { ISaveSurveyResultRepository } from '@/data-layer/protocols/db/save-survey-result-repository'
 import { DbSaveSurveyResult } from './db-save-survey-result'
 import { mockSurveyResultModel, mockSaveSurveyResultParams, throwNewError } from '@/domain/test'
-import { mockSaveSurveyResultRepository } from '@/data-layer/test/mock-db-survey-result'
+import { mockLoadSurveyResultRepository, mockSaveSurveyResultRepository } from '@/data-layer/test/mock-db-survey-result'
+import { ILoadSurveyResultRepository } from '@/data-layer/protocols/db/load-survey-result-repository'
+import MockDate from 'mockdate'
 
 const mockSut = (): SutTypes => {
   const saveSurveyResultRepositoryStub = mockSaveSurveyResultRepository()
-  const sut = new DbSaveSurveyResult(saveSurveyResultRepositoryStub)
+  const loadSurveyResultRepositoryStub = mockLoadSurveyResultRepository()
+  const sut = new DbSaveSurveyResult(saveSurveyResultRepositoryStub, loadSurveyResultRepositoryStub)
   return {
     sut,
+    loadSurveyResultRepositoryStub,
     saveSurveyResultRepositoryStub
   }
 }
@@ -16,6 +19,7 @@ const mockSut = (): SutTypes => {
 type SutTypes = {
   sut: DbSaveSurveyResult
   saveSurveyResultRepositoryStub: ISaveSurveyResultRepository
+  loadSurveyResultRepositoryStub: ILoadSurveyResultRepository
 }
 
 describe('DbSaveSurveyResult Usecase', () => {
@@ -29,6 +33,14 @@ describe('DbSaveSurveyResult Usecase', () => {
     const surveyResultData = mockSaveSurveyResultParams()
     await sut.save(surveyResultData)
     expect(addSurveySpy).toHaveBeenCalledWith(surveyResultData)
+  })
+
+  test('Should ILoadSurveyResultRepository with correct values', async () => {
+    const { sut, loadSurveyResultRepositoryStub } = mockSut()
+    const loadBySurveyIdSpy = jest.spyOn(loadSurveyResultRepositoryStub, 'loadBySurveyId')
+    const surveyResultData = mockSaveSurveyResultParams()
+    await sut.save(surveyResultData)
+    expect(loadBySurveyIdSpy).toHaveBeenCalledWith(surveyResultData.surveyId)
   })
 
   test('Should throw if ISaveSurveyResultRepository throws', async () => {
