@@ -1,15 +1,16 @@
 import { SurveyModel } from '@/domain/models/surveys'
+import faker from 'faker'
 
 export const mockSurveyModel = (): SurveyModel => {
   return {
-    id: 'any_id',
-    question: 'any_question',
+    id: faker.random.uuid(),
+    question: faker.random.words(),
     answers: [{
-      answer: 'any_answer'
+      answer: faker.random.word()
     }, {
-      answer: 'any_answer',
-      image: 'any_image'
+      answer: faker.random.word(),
+      image: faker.image.imageUrl()
     }],
-    date: new Date()
+    date: faker.date.recent()
   }
 }

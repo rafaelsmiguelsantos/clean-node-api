@@ -1,3 +1,4 @@
+import { AuthenticationModel } from '@/domain/models/authentication'
 import {
   IAuthentication,
   AuthenticationParams,
@@ -14,14 +15,14 @@ export class DbAuthentication implements IAuthentication {
     private readonly tokenGenerator: IEncrypter,
     private readonly updateAccessTokenRepository: IUpdateAccessTokenRepository) { }
 
-  async auth (authentication: AuthenticationParams): Promise<string> {
-    const account = await this.loadAccountByEmailRepository.loadByEmail(authentication.email)
+  async auth (authenticationParams: AuthenticationParams): Promise<AuthenticationModel> {
+    const account = await this.loadAccountByEmailRepository.loadByEmail(authenticationParams.email)
     if (account) {
-      const isValid = await this.hashComparer.compare(authentication.password, account.password)
+      const isValid = await this.hashComparer.compare(authenticationParams.password, account.password)
       if (isValid) {
         const accessToken = await this.tokenGenerator.encrypt(account.id)
         await this.updateAccessTokenRepository.updateAccessToken(account.id, accessToken)
-        return accessToken
+        return { accessToken, name: account.name }
       }
     }
     return null

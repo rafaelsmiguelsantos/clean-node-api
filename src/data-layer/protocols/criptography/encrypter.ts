@@ -1,3 +1,3 @@
 export class IEncrypter {
-  encrypt: (value: string) => Promise<string>
+  encrypt: (plaintext: string) => Promise<string>
 }
