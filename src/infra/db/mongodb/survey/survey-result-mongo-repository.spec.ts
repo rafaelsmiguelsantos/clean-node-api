@@ -4,9 +4,11 @@ import { AccountModel } from '@/domain/models/account'
 import { MongoHelper } from '@/infra/db/mongodb/helpers/mongo-helper'
 import { SurveyModel } from '@/domain/models/surveys'
 import { mockSurveyData } from '@/domain/test'
+
 let surveyCollection: Collection
 let surveyResultCollection: Collection
 let accountCollection: Collection
+
 const makeSut = (): SurveyResultMongoRepository => {
   return new SurveyResultMongoRepository()
 }

@@ -4,8 +4,8 @@ import { SurveyModel } from '@/domain/models/surveys'
 
 export class DbLoadSurveys implements ILoadSurveys {
   constructor (private readonly loadSurveysRepository: ILoadSurveysRepository) { }
-  async load (): Promise<SurveyModel[]> {
-    const surveys = await this.loadSurveysRepository.loadAll()
+  async load (accountId: string): Promise<SurveyModel[]> {
+    const surveys = await this.loadSurveysRepository.loadAll(accountId)
     return surveys
   }
 }
