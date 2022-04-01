@@ -56,7 +56,9 @@ describe('AddSurvey Mongo Repository', () => {
       expect(surveys.length).toBe(2)
       expect(surveys[0].id).toBeTruthy()
       expect(surveys[0].question).toBe(addSurveyModels[0].question)
+      expect(surveys[0].didAnswer).toBe(true)
       expect(surveys[1].question).toBe(addSurveyModels[1].question)
+      expect(surveys[1].didAnswer).toBe(false)
     })
 
     test('Should load empty list', async () => {

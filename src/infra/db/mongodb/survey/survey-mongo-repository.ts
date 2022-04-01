@@ -16,12 +16,12 @@ export class SurveyMongoRepository implements IAddSurveyRepository, ILoadSurveys
   async loadAll (accountId: string): Promise<SurveyModel[]> {
     const surveyCollection = await MongoHelper.getCollection('surveys')
     const query = new QueryBuilder()
-    query.lookup({
-      from: 'surveyResults',
-      foreignField: 'surveyId',
-      localField: '_id',
-      as: 'result'
-    })
+      .lookup({
+        from: 'surveyResults',
+        foreignField: 'surveyId',
+        localField: '_id',
+        as: 'result'
+      })
       .project({
         _id: 1,
         question: 1,
@@ -42,7 +42,7 @@ export class SurveyMongoRepository implements IAddSurveyRepository, ILoadSurveys
         }
       })
       .build()
-    const surveys = await surveyCollection.aggregate().toArray()
+    const surveys = await surveyCollection.aggregate(query).toArray()
     return MongoHelper.mapCollection(surveys)
   }
 
