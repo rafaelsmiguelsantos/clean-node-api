@@ -1,7 +1,7 @@
 import MockDate from 'mockdate'
 import { DbSaveSurveyResult } from './db-save-survey-result'
 import { mockSaveSurveyResultParams, throwNewError } from '@/domain/test'
-import { LoadSurveyResultRepositorySpy, SaveSurveyResultRepositorySpy } from '@/data-layer/test'
+import { LoadSurveyResultRepositorySpy, SaveSurveyResultRepositorySpy } from '@/data-layer/test/mock-db-survey-result'
 
 const makeSut = (): SutTypes => {
   const saveSurveyResultRepositorySpy = new SaveSurveyResultRepositorySpy()

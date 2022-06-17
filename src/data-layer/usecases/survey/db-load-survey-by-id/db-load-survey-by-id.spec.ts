@@ -1,8 +1,8 @@
-import { LoadSurveyByIdRepositorySpy } from '@/data-layer/test'
 import { throwNewError } from '@/domain/test'
 import { DbLoadSurveyById } from './db-load-survey-by-id'
 import faker from 'faker'
 import MockDate from 'mockdate'
+import { LoadSurveyByIdRepositorySpy } from '@/data-layer/test/mock-db-survey'
 
 type SutTypes = {
   sut: DbLoadSurveyById

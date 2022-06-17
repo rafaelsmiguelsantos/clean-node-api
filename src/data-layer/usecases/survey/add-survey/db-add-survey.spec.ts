@@ -1,7 +1,7 @@
 import { DbAddSurvey } from './db-add-survey'
 import { mockSurveyData, throwNewError } from '@/domain/test'
-import { AddSurveyRepositorySpy } from '@/data-layer/test'
 import MockDate from 'mockdate'
+import { AddSurveyRepositorySpy } from '@/data-layer/test/mock-db-survey'
 
 type SutTypes = {
   sut: DbAddSurvey

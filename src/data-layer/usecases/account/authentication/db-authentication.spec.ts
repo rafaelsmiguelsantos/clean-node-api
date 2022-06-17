@@ -1,5 +1,6 @@
 
-import { EncrypterSpy, HashComparerSpy, LoadAccountByEmailRepositorySpy, UpdateAccessTokenRepositorySpy } from '@/data-layer/test'
+import { EncrypterSpy, HashComparerSpy } from '@/data-layer/test/mock-criptography'
+import { LoadAccountByEmailRepositorySpy, UpdateAccessTokenRepositorySpy } from '@/data-layer/test/mock-db-account'
 import { mockAuthenticationParams, throwNewError } from '@/domain/test'
 import { DbAuthentication } from './db-authentication'
 

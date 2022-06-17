@@ -1,4 +1,4 @@
-import { LogErrorRepositorySpy } from '@/data-layer/test'
+import { LogErrorRepositorySpy } from '@/data-layer/test/mock-db-log'
 import { mockAccountModel } from '@/domain/test'
 import { ok, serverError } from '@/presentation/helpers/http/http-helper'
 import { Controller, HttpRequest, HttpResponse } from '@/presentation/protocols'

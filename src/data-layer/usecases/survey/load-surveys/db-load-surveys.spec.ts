@@ -1,4 +1,4 @@
-import { LoadSurveysRepositorySpy } from '@/data-layer/test'
+import { LoadSurveysRepositorySpy } from '@/data-layer/test/mock-db-survey'
 import { throwNewError } from '@/domain/test'
 import faker from 'faker'
 import MockDate from 'mockdate'
